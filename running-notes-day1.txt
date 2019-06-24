@@ -943,3 +943,95 @@ b34bb104ec6d        About an hour ago   nginx -g daemon off;                    
 <missing>           13 days ago         /bin/sh -c #(nop) ADD file:5ffb798d6408941...   55.3MB  
 
 /home/docker>
+
+
+--------------------------------------------------------------------------------------
+
+
+/home/docker>
+
+/home/docker> ls
+
+/home/docker> cd /c/Users/Dell\ lap/docker-workshop/jun24/
+
+/c/Users/Dell lap/docker-workshop/jun24> ls
+ora-jun24-dock-kube
+
+/c/Users/Dell lap/docker-workshop/jun24> mkdir app
+
+/c/Users/Dell lap/docker-workshop/jun24> cd app
+
+/c/Users/Dell lap/docker-workshop/jun24/app> ls
+
+/c/Users/Dell lap/docker-workshop/jun24/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/app> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/jun24/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/app> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/jun24/app> docker image build -f Dockerfile -t app:latest -t app:1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+latest: Pulling from library/alpine
+921b31ab772b: Pull complete
+Digest: sha256:ca1c944a4f8486a153024d9965aafbe24f5723c1d5c02f4964c045a16d19dc54
+Status: Downloaded newer image for alpine:latest
+ ---> 4d90542f0623
+Step 2/3 : RUN apk update
+ ---> Running in 51eb42f55202
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.10/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.10/community/x86_64/APKINDEX.tar.gz
+v3.10.0-4-g2174faf01b [http://dl-cdn.alpinelinux.org/alpine/v3.10/main]
+v3.10.0-3-g43ac83e8aa [http://dl-cdn.alpinelinux.org/alpine/v3.10/community]
+OK: 10327 distinct packages available
+ ---> 60ff1be135da
+Removing intermediate container 51eb42f55202
+Step 3/3 : RUN apk add apache2
+ ---> Running in bc90f64661b2
+(1/6) Installing libuuid (2.33.2-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r6)
+(5/6) Installing pcre (8.43-r0)
+(6/6) Installing apache2 (2.4.39-r0)
+Executing apache2-2.4.39-r0.pre-install
+Executing busybox-1.30.1-r2.trigger
+OK: 9 MiB in 20 packages
+ ---> bd6b4a5af614
+Removing intermediate container bc90f64661b2
+Successfully built bd6b4a5af614
+Successfully tagged app:latest
+Successfully tagged app:1
+
+/c/Users/Dell lap/docker-workshop/jun24/app> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              4d90542f0623        4 days ago          5.58MB
+
+/c/Users/Dell lap/docker-workshop/jun24/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/app> docker image ls app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+app                 1                   bd6b4a5af614        4 minutes ago       10.6MB
+app                 latest              bd6b4a5af614        4 minutes ago       10.6MB
+
+/c/Users/Dell lap/docker-workshop/jun24/app> docker image history alpine
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+4d90542f0623        4 days ago          /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 days ago          /bin/sh -c #(nop) ADD file:fef3b00b3ae6396...   5.58MB  
+
+/c/Users/Dell lap/docker-workshop/jun24/app> docker image history app
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+bd6b4a5af614        5 minutes ago       /bin/sh -c apk add apache2                      3.6MB   
+60ff1be135da        5 minutes ago       /bin/sh -c apk update                           1.42MB  
+4d90542f0623        4 days ago          /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 days ago          /bin/sh -c #(nop) ADD file:fef3b00b3ae6396...   5.58MB  
+
+/c/Users/Dell lap/docker-workshop/jun24/app>
