@@ -1,0 +1,161 @@
+/home/docker> ps -ef | grep dockerd
+root      2396     1  4 04:54 ?        00:05:27 /usr/bin/dockerd -H tcp://0.0.0.                0:2376 -H unix:///var/run/docker.sock --tlsverify --tlscacert /etc/docker/ca.pem                 --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label pr                ovider=virtualbox --insecure-registry 10.96.0.0/12
+docker   25238 11556  0 06:47 pts/0    00:00:00 grep dockerd
+
+/home/docker> docker version
+Client:
+ Version:      17.09.0-ce
+ API version:  1.32
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:39:28 2017
+ OS/Arch:      linux/amd64
+
+Server:
+ Version:      17.09.0-ce
+ API version:  1.32 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:45:38 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+
+/home/docker>
+
+/home/docker> docker
+
+Usage:  docker COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default
+                           "/home/docker/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level
+                           ("debug"|"info"|"warn"|"error"|"fatal")
+                           (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default
+                           "/home/docker/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "/home/docker/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "/home/docker/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a runnin                g container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesyste                m
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by de                fault)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit cod                es
+
+Run 'docker COMMAND --help' for more information on a command.
+
+/home/docker>
+
+/home/docker> docker container run nginx
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+fc7181108d40: Pull complete
+c4277fc40ec2: Pull complete
+780053e98559: Pull complete
+Digest: sha256:bdbf36b7f1f77ffe7bd2a32e59235dff6ecf131e3b6b5b96061c652f30685f3a
+Status: Downloaded newer image for nginx:latest
+
+
+
+/home/docker>
+
+/home/docker>
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                                            COMMAND                  CREATED             STATUS              PORTS                                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                                            COMMAND                  CREATED             STATUS                      PO                RTS                                                                NAMES
+02706c7cc2e1        nginx                                                                            "nginx -g 'daemon ..."   5 minutes ago       Exited (0) 42 seconds ago                                                                                        jovial_pasteu                r
+
+/home/docker> docker container start 02706c7cc2e1
+02706c7cc2e1
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+02706c7cc2e1        nginx                                                            "nginx -g 'daemon ..."   6 minutes ago       Up 3 seconds        80/tcp                                                               jovial_pasteur
+
+/home/docker> docker container run nginx
+
+/home/docker> docker container run -d nginx
+5262d9bd3ad5162de0fe9a07b61141949cef46bcb21337aa8ec5fa12c7b56f7c
+
+/home/docker> docker container ls| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+5262d9bd3ad5        nginx                                                            "nginx -g 'daemon ..."   13 seconds ago      Up 13 seconds       80/tcp                                                               zen_allen
+02706c7cc2e1        nginx                                                            "nginx -g 'daemon ..."   11 minutes ago      Up 4 minutes        80/tcp                                                               jovial_pasteur
+
+/home/docker> docker container rm 5262d9bd3ad5
+Error response from daemon: You cannot remove a running container 5262d9bd3ad5162de0fe9a07b61141949cef46bcb21337aa8ec5fa12c7b56f7c. Stop the container before attempting removal or force remove
+
+/home/docker> docker container rm -f 5262d9bd3ad5
+5262d9bd3ad5
+
+/home/docker> docker container rm -f 02706c7cc2e1
+02706c7cc2e1
+
+/home/docker> docker container ls| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker>
