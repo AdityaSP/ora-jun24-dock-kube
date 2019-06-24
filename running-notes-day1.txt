@@ -846,3 +846,100 @@ mypage.html
 
 /home/docker>
 
+
+-----------------------------------------------------------------
+
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              719cd2e3ed04        13 days ago         109MB
+
+/home/docker> docker image ls nginx-app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx-app           latest              b34bb104ec6d        24 minutes ago      128MB
+
+/home/docker> docker image pull nginx:1
+1: Pulling from library/nginx
+Digest: sha256:bdbf36b7f1f77ffe7bd2a32e59235dff6ecf131e3b6b5b96061c652f30685f3a
+Status: Downloaded newer image for nginx:1
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1                   719cd2e3ed04        13 days ago         109MB
+nginx               latest              719cd2e3ed04        13 days ago         109MB
+
+/home/docker> docker image pull nginx:alpine
+alpine: Pulling from library/nginx
+e7c96db7181b: Already exists
+f0e40e45c95e: Pull complete
+Digest: sha256:b126fee6820be927b1e04ae36b3f51aa47d9b73bf6b1826ff19a59d22b2b4c63
+Status: Downloaded newer image for nginx:alpine
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1                   719cd2e3ed04        13 days ago         109MB
+nginx               latest              719cd2e3ed04        13 days ago         109MB
+nginx               alpine              bfba26ca350c        2 weeks ago         20.5MB
+
+/home/docker> docker image ls nginx:latest
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              719cd2e3ed04        13 days ago         109MB
+
+/home/docker> docker image ls nginx-app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx-app           latest              b34bb104ec6d        30 minutes ago      128MB
+
+/home/docker>
+
+/home/docker> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+719cd2e3ed04        13 days ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           13 days ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           13 days ago         /bin/sh -c set -x     && addgroup --system...   54MB    
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV PKG_RELEASE=1~stretch    0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NJS_VERSION=0.3.2        0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.17.0     0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           13 days ago         /bin/sh -c #(nop) ADD file:5ffb798d6408941...   55.3MB  
+
+/home/docker> docker image ls nginx-app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx-app           latest              b34bb104ec6d        40 minutes ago      128MB
+
+/home/docker> docker image ls nginx:latest
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              719cd2e3ed04        13 days ago         109MB
+
+/home/docker> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+719cd2e3ed04        13 days ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           13 days ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           13 days ago         /bin/sh -c set -x     && addgroup --system...   54MB    
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV PKG_RELEASE=1~stretch    0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NJS_VERSION=0.3.2        0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.17.0     0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           13 days ago         /bin/sh -c #(nop) ADD file:5ffb798d6408941...   55.3MB  
+
+/home/docker> docker image history nginx-app
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+b34bb104ec6d        About an hour ago   nginx -g daemon off;                            19.1MB  
+719cd2e3ed04        13 days ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           13 days ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           13 days ago         /bin/sh -c set -x     && addgroup --system...   54MB    
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV PKG_RELEASE=1~stretch    0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NJS_VERSION=0.3.2        0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.17.0     0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           13 days ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           13 days ago         /bin/sh -c #(nop) ADD file:5ffb798d6408941...   55.3MB  
+
+/home/docker>
