@@ -7,4 +7,5 @@ RUN chmod +x /bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["httpd", "-D", "FOREGROUND"]
 COPY mypage.html /var/www/localhost/htdocs
+ENV APACHE_PORT 80
 #docker-entrypoint.sh httpd -D FOREGROUND
