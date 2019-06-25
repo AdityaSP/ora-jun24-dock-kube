@@ -1,0 +1,149 @@
+$ sudo su
+$ cd /var/lib/docker/
+builder/    image/      overlay2/   swarm/      trust/
+containers/ network/    plugins/    tmp/        volumes/
+$ cd /var/lib/docker/containers/
+$ ls
+0194efc116119e4c859df18baa04966a2434538805a1492ff1631bd4e6bf0171
+0603499db215f5f8431137ac28a35cb02612ae9d361613f44bd9d6e15359cfb9
+180a9192eddd2638111c20cfe87f08175fbaacebc05aac97e4049ad7746c3e40
+1b91c7f4ccb1ca0b5b82ff85f59e149f0a8c2986e5ebe925ac88c2d7359d3622
+1cc3f0d0e570f532229b439b6c2337ef213582523c9e27f0709376e714c1dc89
+1e7e3a9642bce1f3e40f00126f783cb8a0837d2731c95ad1ac77d8b0427b929d
+2c9b407c3a342d39bde0f9d770181ef46b2c349b763b9e8f0ff07dbbc2756b74
+33fb2085e45a8db9f8e508ed630dd3be9958fa730bde3fa502e67d88a6eade5a
+36e04369c3b7ad3894e62435bce31a8ae1572997933d6827d1d7571411fee998
+3ee752166b76827b205ec418a11d405ecf00f263fd59276eec53724db88a6034
+3f30bc2b7262e4779ea6c6e83c1e7b6fea94307ab7429efee607111a0da1bfb5
+412b820dbf74360c8fbea846baa3219357f6d6d45dc24d9941ebe1392655a262
+43c1d85359a2662c5927a7b372a1fcccb8d0cb2e27de75974e2e54c24d9baff5
+50115a218b746365ea0e5477510b3a9ab15418deb9182cd7db4ce4646680b84a
+55d06aec29f634dcb594393839ac9e2c61699a2cc32841eaad2acb8eda9c3db3
+59a640aaefafcf52891f2bc223ed20358681acbad1f9639a3bcb177d15a495a1
+59aad6028618d8bf0897e8f8635689760aaa95cb041b99c834bc04eb8b0b2523
+5f1e7212184fc4f500fff9ab2c6c5e6c1b6be98df32256b11ce695f0c0c90a9b
+6bd9215b757c3948e0941e172d664b278b7f0f9185a76f192f9d605692766afd
+711c100e4d6ba95e9b64892f8c5c12ba4c8046014c80bd902ee1f8864e9ff3b0
+73fa76a77aa7179fca441ef6a2936f646b36cd1d1b23a8f96fd810ab55065ffa
+7e051a18fa2ba3619c8718bdbe1b3f18901c3a94155804881780673f72f9c530
+821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0
+840ba957159f673fe23937dcf36f0c7184208bc9282a0819c0c25199048dc2dc
+864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c
+8f39165b4b2b2728ffbc96f5c577b954925ec3f92ce3e589b6ef996ca996d211
+9de0b7aba7e641f5a41a5661e348667cf74eb34e5067cddde85219aeafd129bd
+a1040012f8375e1f915cd2b09a0ace66e7ec427e19a6eea6094a3ef0e4e3ac4a
+b959beeb98c09ac3a14a6f78398b3d5ccf219f3f25e9ee7ba12779313c1994fd
+c5677ec82cf8a378f02a71982c168fbef89ce8d2fadcaf08623d90da056c2a71
+cdb42f2258db3db07ac1efcae244ca731909ac74319ba145eec8a139b3f5357d
+d02a9cd88940b18024dc631b0eea86fff815ccd19b1cceb306f21f97656df7c5
+d28decbe0fca6337e3412d14203c77002e3cc5c85d52744d7f737a1206f5b21f
+dc14e8462bf306acc8d27030ac190d81d4dbfe34b98107127f4de8eeda696f19
+e287025a466c4df5e401e344e7e8e797f85561b8303187701a11846640f280da
+e30e6413e5fcf5466a346a6933d7fad2391c407cc1d23242e67c746e192afcb6
+e430806ee614b03ef0cb428bd1c38be0b8fc043c3fbcbaff4c7da539ef68021e
+e7578497891af6d7a0848848a874cac0ed520939b1fe133fde7ab86f1529854f
+ea7a5c4150769a4b1527fc642b7e518076e27eee5fe16bdd44f391f68f5757ba
+f209be230fa0809994c779a7143ec860158f5ea4f32c2e26deb15ad5519573d4
+f4122c5d56593aa2bfcfc7d00753cf7b8248b3fc03d5221673f368c18dae7602
+f747a618f59e8577a46e6369a242cf52f341dc0c1d22a81d00385255a8c1afb6
+fcbd85bcc9b56a994374d9b53c101739efdd805e5e9a8cab46338c2053a5b3c0
+$
+$ pwd
+/var/lib/docker/containers
+$ cd 821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0/
+$ pwd
+/var/lib/docker/containers/821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0
+$ ls
+821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0-json.log
+checkpoints
+config.v2.json
+hostconfig.json
+hostname
+hosts
+resolv.conf
+resolv.conf.hash
+shm
+$ hostname
+minikube
+$ vi 821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0-json.log
+$ ps -ef | grep init.d
+root     15964 15157  0 04:50 pts/1    00:00:00 grep init.d
+$ ps -ef | grep init
+root         1     0  1 04:07 ?        00:00:41 /sbin/init noembed norestore
+root      5222  5169  0 04:09 ?        00:00:00 /usr/bin/dumb-init /nginx-ingress-controller --default-backend-service=kube-system/default-http-backend --configmap=kube-system/nginx-load-balancer-conf --tcp-services-configmap=kube-system/tcp-services --udp-services-configmap=kube-system/udp-services --report-node-internal-ip-address
+root     15985 15157  0 04:50 pts/1    00:00:00 grep init
+$
+$ ps -ef | grep "httpd -D FOREGROUND"
+root     13132 13110  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13200 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13201 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13202 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13203 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13204 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13339 13132  0 04:39 ?        00:00:00 httpd -D FOREGROUND
+root     16308 15157  0 04:52 pts/1    00:00:00 grep httpd -D FOREGROUND
+$ ps -ef | grep 13110
+root     13110  2421  0 04:38 ?        00:00:00 docker-containerd-shim 864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c /var/run/docker/libcontainerd/864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c docker-runc
+root     13132 13110  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+root     16745 15157  0 04:54 pts/1    00:00:00 grep 13110
+$ ps -ef | grep 2421
+root      2421  2386  0 04:08 ?        00:00:04 docker-containerd -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval=0 --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --shim docker-containerd-shim --runtime docker-runc
+root      4093  2421  0 04:09 ?        00:00:00 docker-containerd-shim 1cc3f0d0e570f532229b439b6c2337ef213582523c9e27f0709376e714c1dc89 /var/run/docker/libcontainerd/1cc3f0d0e570f532229b439b6c2337ef213582523c9e27f0709376e714c1dc89 docker-runc
+root      4191  2421  0 04:09 ?        00:00:00 docker-containerd-shim e430806ee614b03ef0cb428bd1c38be0b8fc043c3fbcbaff4c7da539ef68021e /var/run/docker/libcontainerd/e430806ee614b03ef0cb428bd1c38be0b8fc043c3fbcbaff4c7da539ef68021e docker-runc
+root      4252  2421  0 04:09 ?        00:00:00 docker-containerd-shim 180a9192eddd2638111c20cfe87f08175fbaacebc05aac97e4049ad7746c3e40 /var/run/docker/libcontainerd/180a9192eddd2638111c20cfe87f08175fbaacebc05aac97e4049ad7746c3e40 docker-runc
+root      4253  2421  0 04:09 ?        00:00:00 docker-containerd-shim 33fb2085e45a8db9f8e508ed630dd3be9958fa730bde3fa502e67d88a6eade5a /var/run/docker/libcontainerd/33fb2085e45a8db9f8e508ed630dd3be9958fa730bde3fa502e67d88a6eade5a docker-runc
+root      4409  2421  0 04:09 ?        00:00:00 docker-containerd-shim d28decbe0fca6337e3412d14203c77002e3cc5c85d52744d7f737a1206f5b21f /var/run/docker/libcontainerd/d28decbe0fca6337e3412d14203c77002e3cc5c85d52744d7f737a1206f5b21f docker-runc
+root      4585  2421  0 04:09 ?        00:00:00 docker-containerd-shim c5677ec82cf8a378f02a71982c168fbef89ce8d2fadcaf08623d90da056c2a71 /var/run/docker/libcontainerd/c5677ec82cf8a378f02a71982c168fbef89ce8d2fadcaf08623d90da056c2a71 docker-runc
+root      4677  2421  0 04:09 ?        00:00:00 docker-containerd-shim 55d06aec29f634dcb594393839ac9e2c61699a2cc32841eaad2acb8eda9c3db3 /var/run/docker/libcontainerd/55d06aec29f634dcb594393839ac9e2c61699a2cc32841eaad2acb8eda9c3db3 docker-runc
+root      4776  2421  0 04:09 ?        00:00:00 docker-containerd-shim 412b820dbf74360c8fbea846baa3219357f6d6d45dc24d9941ebe1392655a262 /var/run/docker/libcontainerd/412b820dbf74360c8fbea846baa3219357f6d6d45dc24d9941ebe1392655a262 docker-runc
+root      4840  2421  0 04:09 ?        00:00:00 docker-containerd-shim 43c1d85359a2662c5927a7b372a1fcccb8d0cb2e27de75974e2e54c24d9baff5 /var/run/docker/libcontainerd/43c1d85359a2662c5927a7b372a1fcccb8d0cb2e27de75974e2e54c24d9baff5 docker-runc
+root      4955  2421  0 04:09 ?        00:00:00 docker-containerd-shim 0603499db215f5f8431137ac28a35cb02612ae9d361613f44bd9d6e15359cfb9 /var/run/docker/libcontainerd/0603499db215f5f8431137ac28a35cb02612ae9d361613f44bd9d6e15359cfb9 docker-runc
+root      5029  2421  0 04:09 ?        00:00:00 docker-containerd-shim b959beeb98c09ac3a14a6f78398b3d5ccf219f3f25e9ee7ba12779313c1994fd /var/run/docker/libcontainerd/b959beeb98c09ac3a14a6f78398b3d5ccf219f3f25e9ee7ba12779313c1994fd docker-runc
+root      5043  2421  0 04:09 ?        00:00:00 docker-containerd-shim 711c100e4d6ba95e9b64892f8c5c12ba4c8046014c80bd902ee1f8864e9ff3b0 /var/run/docker/libcontainerd/711c100e4d6ba95e9b64892f8c5c12ba4c8046014c80bd902ee1f8864e9ff3b0 docker-runc
+root      5138  2421  0 04:09 ?        00:00:00 docker-containerd-shim fcbd85bcc9b56a994374d9b53c101739efdd805e5e9a8cab46338c2053a5b3c0 /var/run/docker/libcontainerd/fcbd85bcc9b56a994374d9b53c101739efdd805e5e9a8cab46338c2053a5b3c0 docker-runc
+root      5169  2421  0 04:09 ?        00:00:00 docker-containerd-shim ea7a5c4150769a4b1527fc642b7e518076e27eee5fe16bdd44f391f68f5757ba /var/run/docker/libcontainerd/ea7a5c4150769a4b1527fc642b7e518076e27eee5fe16bdd44f391f68f5757ba docker-runc
+root      5344  2421  0 04:09 ?        00:00:00 docker-containerd-shim f747a618f59e8577a46e6369a242cf52f341dc0c1d22a81d00385255a8c1afb6 /var/run/docker/libcontainerd/f747a618f59e8577a46e6369a242cf52f341dc0c1d22a81d00385255a8c1afb6 docker-runc
+root      5494  2421  0 04:09 ?        00:00:00 docker-containerd-shim 7e051a18fa2ba3619c8718bdbe1b3f18901c3a94155804881780673f72f9c530 /var/run/docker/libcontainerd/7e051a18fa2ba3619c8718bdbe1b3f18901c3a94155804881780673f72f9c530 docker-runc
+root      5542  2421  0 04:09 ?        00:00:00 docker-containerd-shim 1b91c7f4ccb1ca0b5b82ff85f59e149f0a8c2986e5ebe925ac88c2d7359d3622 /var/run/docker/libcontainerd/1b91c7f4ccb1ca0b5b82ff85f59e149f0a8c2986e5ebe925ac88c2d7359d3622 docker-runc
+root      5550  2421  0 04:09 ?        00:00:00 docker-containerd-shim a1040012f8375e1f915cd2b09a0ace66e7ec427e19a6eea6094a3ef0e4e3ac4a /var/run/docker/libcontainerd/a1040012f8375e1f915cd2b09a0ace66e7ec427e19a6eea6094a3ef0e4e3ac4a docker-runc
+root      5552  2421  0 04:09 ?        00:00:00 docker-containerd-shim 59aad6028618d8bf0897e8f8635689760aaa95cb041b99c834bc04eb8b0b2523 /var/run/docker/libcontainerd/59aad6028618d8bf0897e8f8635689760aaa95cb041b99c834bc04eb8b0b2523 docker-runc
+root      5553  2421  0 04:09 ?        00:00:00 docker-containerd-shim 36e04369c3b7ad3894e62435bce31a8ae1572997933d6827d1d7571411fee998 /var/run/docker/libcontainerd/36e04369c3b7ad3894e62435bce31a8ae1572997933d6827d1d7571411fee998 docker-runc
+root      5635  2421  0 04:09 ?        00:00:00 docker-containerd-shim f4122c5d56593aa2bfcfc7d00753cf7b8248b3fc03d5221673f368c18dae7602 /var/run/docker/libcontainerd/f4122c5d56593aa2bfcfc7d00753cf7b8248b3fc03d5221673f368c18dae7602 docker-runc
+root      6040  2421  0 04:09 ?        00:00:00 docker-containerd-shim e287025a466c4df5e401e344e7e8e797f85561b8303187701a11846640f280da /var/run/docker/libcontainerd/e287025a466c4df5e401e344e7e8e797f85561b8303187701a11846640f280da docker-runc
+root      6137  2421  0 04:09 ?        00:00:00 docker-containerd-shim 0194efc116119e4c859df18baa04966a2434538805a1492ff1631bd4e6bf0171 /var/run/docker/libcontainerd/0194efc116119e4c859df18baa04966a2434538805a1492ff1631bd4e6bf0171 docker-runc
+root      6195  2421  0 04:09 ?        00:00:00 docker-containerd-shim 1e7e3a9642bce1f3e40f00126f783cb8a0837d2731c95ad1ac77d8b0427b929d /var/run/docker/libcontainerd/1e7e3a9642bce1f3e40f00126f783cb8a0837d2731c95ad1ac77d8b0427b929d docker-runc
+root      6238  2421  0 04:09 ?        00:00:00 docker-containerd-shim 50115a218b746365ea0e5477510b3a9ab15418deb9182cd7db4ce4646680b84a /var/run/docker/libcontainerd/50115a218b746365ea0e5477510b3a9ab15418deb9182cd7db4ce4646680b84a docker-runc
+root      6239  2421  0 04:09 ?        00:00:00 docker-containerd-shim 5f1e7212184fc4f500fff9ab2c6c5e6c1b6be98df32256b11ce695f0c0c90a9b /var/run/docker/libcontainerd/5f1e7212184fc4f500fff9ab2c6c5e6c1b6be98df32256b11ce695f0c0c90a9b docker-runc
+root      6247  2421  0 04:09 ?        00:00:00 docker-containerd-shim 3f30bc2b7262e4779ea6c6e83c1e7b6fea94307ab7429efee607111a0da1bfb5 /var/run/docker/libcontainerd/3f30bc2b7262e4779ea6c6e83c1e7b6fea94307ab7429efee607111a0da1bfb5 docker-runc
+root      6248  2421  0 04:09 ?        00:00:00 docker-containerd-shim d02a9cd88940b18024dc631b0eea86fff815ccd19b1cceb306f21f97656df7c5 /var/run/docker/libcontainerd/d02a9cd88940b18024dc631b0eea86fff815ccd19b1cceb306f21f97656df7c5 docker-runc
+root      6253  2421  0 04:09 ?        00:00:00 docker-containerd-shim 6bd9215b757c3948e0941e172d664b278b7f0f9185a76f192f9d605692766afd /var/run/docker/libcontainerd/6bd9215b757c3948e0941e172d664b278b7f0f9185a76f192f9d605692766afd docker-runc
+root      9072  2421  0 04:20 ?        00:00:00 docker-containerd-shim cdb42f2258db3db07ac1efcae244ca731909ac74319ba145eec8a139b3f5357d /var/run/docker/libcontainerd/cdb42f2258db3db07ac1efcae244ca731909ac74319ba145eec8a139b3f5357d docker-runc
+root      9833  2421  0 04:24 ?        00:00:02 docker-containerd-shim dc14e8462bf306acc8d27030ac190d81d4dbfe34b98107127f4de8eeda696f19 /var/run/docker/libcontainerd/dc14e8462bf306acc8d27030ac190d81d4dbfe34b98107127f4de8eeda696f19 docker-runc
+root     13110  2421  0 04:38 ?        00:00:00 docker-containerd-shim 864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c /var/run/docker/libcontainerd/864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c docker-runc
+root     15779  2421  0 04:49 ?        00:00:00 docker-containerd-shim 864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c /var/run/docker/libcontainerd/864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c docker-runc
+root     17085 15157  0 04:56 pts/1    00:00:00 grep 2421
+$ ps -ef | grep 2386
+root      2386     1  4 04:08 ?        00:02:04 /usr/bin/dockerd -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --tlsverify --tlscacert /etc/docker/ca.pem --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label provider=virtualbox --insecure-registry 10.96.0.0/12
+root      2421  2386  0 04:08 ?        00:00:04 docker-containerd -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval=0 --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --shim docker-containerd-shim --runtime docker-runc
+root      4284  2386  0 04:09 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 18080 -container-ip 172.17.0.4 -container-port 18080
+root      4427  2386  0 04:09 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 443 -container-ip 172.17.0.4 -container-port 443
+root      4487  2386  0 04:09 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 80 -container-ip 172.17.0.4 -container-port 80
+root     13106  2386  0 04:38 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 9090 -container-ip 172.17.0.16 -container-port 80
+root     17280 15157  0 04:57 pts/1    00:00:00 grep 2386
+$ ps -ef | grep "httpd -D FOREGROUND"
+root     13132 13110  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13200 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13201 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13202 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13203 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13204 13132  0 04:38 ?        00:00:00 httpd -D FOREGROUND
+100      13339 13132  0 04:39 ?        00:00:00 httpd -D FOREGROUND
+root     17634 15157  0 04:59 pts/1    00:00:00 grep httpd -D FOREGROUND
+$ kill -9 13132
+$ ps -ef | gre "ping google.com"
+sh: gre: command not found
+$ ps -ef | grep "ping google.com"
+root      9854  9833  0 04:24 ?        00:00:00 ping google.com
+root     18877 15157  0 05:05 pts/1    00:00:00 grep ping google.com
+$ kill -9 9854
+$
