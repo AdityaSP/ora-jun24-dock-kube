@@ -1,0 +1,9 @@
+1. Backup: unnamed volumes
+    1.1 docker container run -d -v /var/log/apache2 app
+    1.2 VOLUME /var/lib/mysql  -> in the Dockerfile
+    
+2. Backup and reuse: named volumes
+    2.1 docker container run -v proj_db:/var/lib/mysql -d -e MYSQL_ROOT_PASSWORD=welcome mysql:5.7
+    
+3. backup and reuse and choose my own dir: bind mounts
+    3.1 docker container run -d -v /tmp/logs:/var/log/apache2 app    
