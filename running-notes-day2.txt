@@ -1,0 +1,308 @@
+$ export PS1='\n$PWD> '
+
+/home/docker> ls
+
+/home/docker> cd /c/Users/Dell\ lap/docker-workshop/jun24/
+
+/c/Users/Dell lap/docker-workshop/jun24>
+
+/c/Users/Dell lap/docker-workshop/jun24> ls
+ora-jun24-dock-kube
+
+/c/Users/Dell lap/docker-workshop/jun24> cd ora-jun24-dock-kube/
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube> ls
+README.md  docker-command-list.docx  rough-diag.pptx         setup.md
+app        dockers-slightedge.pdf    running-notes-day1.txt
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube> cd app/
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> ls
+Dockerfile  app.tar
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image ls app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+app                 1                   bd6b4a5af614        17 hours ago        10.6MB
+app                 latest              bd6b4a5af614        17 hours ago        10.6MB
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                          PORTS                                                                NAMES
+370b77bd7fe8        alpine                                                           "sh"                     7 minutes ago       Exited (0) About a minute ago                                                                        quirky_bartik
+bb174019fc17        nginx-app                                                        "nginx -g 'daemon ..."   19 hours ago        Exited (137) 16 hours ago                                                                            sad_galileo
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+370b77bd7fe8f6fef7291c7835697ded6da27c897264a948e337ca405efb705c
+bb174019fc17566613f2ae8629f323a0d1b99c075d6cd42c85854eea19effb92
+ffcdbd6d731999d4d0935536804225fea897435d4d6d8c11699b89a6c9f0b1f4
+43966f75ab04fe25f4fdcb654f1c3e95e73ed9c6beda66b61d5594c08102e653
+6c4c108e43afd0d93b169437032a8a68ab32306f3da51c54c5b840cf684d9c82
+e45381d761795ee12aa49942f7c47f316b899bc4a3ed601768f36fe4e7b1fc0a
+ad186d689e56b9ba7dadc826807bd5e3df92a43a7930446064041dfab4a72a3a
+16ef7bcbd58cda19fc4b59156310b8540ab576f5ccccfb50374238b0666d9448
+5894c72f199b6ed4bbc9c9b33e203745611908a6a018ce41fd817047d420bba6
+b6eccae71a3b784bd3ae6b7addf8bae3dfa3de16e918edcfa440f253db9b1a43
+51fe3c6c08b16a95c3a9922d29d30726a9ef1880e9c1d0763966d6937cdffb29
+ed02fa2169d84fb2d1dd10252e7677e848aff2ab0f0980939d8236b564ecd3f4
+fda7450dd768686eefce0dba758ccafa4ef61720986e98d88b377629e75fe4b2
+24b87c274b08ff4e9f05426630889149ab1d3d365cffe721df7a4601ca253a84
+951ee49073cb83a1191b0e686c10c89b548b79e9ee4a301d755c637b95c587c6
+ae32944e5c12d09f7fe220bb67e29d2e09f751d7ab11c305a6def4343aeb35c1
+89aa7c985cd3fc1d80a2fe7f2e80e9b46fa5a307732ef28d9ec2abbe166ae466
+a659b01015244526f26042baf96c26365acbc2a1e0c1c74cdb0dc09eb00db1a5
+ca6e599d703070facf8babea1e778446845237d714909b480f1bc334dee6ac8c
+c7b6379f9e29bfb945734778899cf65e27e46f22b1d3b9c6c7f2d133f81aff65
+7764e3f0694b4dbee2bd8ec5fdb6775f9bcde961480792df29e8137351b4d393
+8921b6c821ec4f4c46274adfb1f539a1c769244906d162f8f893d1f08b210e4d
+008defa87abca66ad58edb46d6694a0675628b92fb84d7ed8246112a032fec59
+e40767fa0c83f2ad7597e15eccc91c63110a4c245004c3467863fa21377431f7
+6743d554d77c6fe81ad78f9cf152fef5901628f14817eb5d42863e3c02a6ecc0
+f5f1be73958dd0c3032a417b142a4effd133192d49667c881b13ebd840037715
+fcb808e1dc5741263cb43285b1b7df6945c32383c09aef012c467e35336a8930
+4a412037b05f413c6e677b28093e962132795b69adbee7d4e1805d1c666ef2a4
+88d585c66b69f1d1bbd6284c29c518542799f0250ea5f5a1e05938c73a8619b1
+ac51c316d7871cdf8b9b8be423025d90bebb69ef8574a663e50b1733f868afba
+e3bfbaecbbefbe2dee531b8ad01de068fb1169077e22a8fd39ec1fd70a067b23
+
+Total reclaimed space: 2.983MB
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cd
+
+/home/docker> docker container run -d app
+2c9b407c3a342d39bde0f9d770181ef46b2c349b763b9e8f0ff07dbbc2756b74
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+2c9b407c3a34        app                                                              "/bin/sh"                23 seconds ago      Exited (0) 22 seconds ago                                                                        laughing_dijkstra
+
+/home/docker> docker container run -d nginx
+cdb42f2258db3db07ac1efcae244ca731909ac74319ba145eec8a139b3f5357d
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                          PORTS                                                                NAMES
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   3 seconds ago       Up 1 second                     80/tcp                                                               elastic_knuth
+2c9b407c3a34        app                                                              "/bin/sh"                2 minutes ago       Exited (0) About a minute ago                                                                        laughing_dijkstra
+
+/home/docker>
+
+/home/docker> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+719cd2e3ed04        2 weeks ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           2 weeks ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           2 weeks ago         /bin/sh -c set -x     && addgroup --system...   54MB    
+<missing>           2 weeks ago         /bin/sh -c #(nop)  ENV PKG_RELEASE=1~stretch    0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  ENV NJS_VERSION=0.3.2        0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.17.0     0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           2 weeks ago         /bin/sh -c #(nop) ADD file:5ffb798d6408941...   55.3MB  
+
+/home/docker> docker image history app
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+bd6b4a5af614        17 hours ago        /bin/sh -c apk add apache2                      3.6MB   
+60ff1be135da        17 hours ago        /bin/sh -c apk update                           1.42MB  
+4d90542f0623        5 days ago          /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           5 days ago          /bin/sh -c #(nop) ADD file:fef3b00b3ae6396...   5.58MB  
+
+/home/docker> docker container run -d app ping google.com
+dc14e8462bf306acc8d27030ac190d81d4dbfe34b98107127f4de8eeda696f19
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+dc14e8462bf3        app                                                              "ping google.com"        10 seconds ago      Up 9 seconds                                                                             youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   3 minutes ago       Up 3 minutes        80/tcp                                                               elastic_knuth
+
+/home/docker> docker container run -d app ping -c20 google.com
+59a640aaefafcf52891f2bc223ed20358681acbad1f9639a3bcb177d15a495a1
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+59a640aaefaf        app                                                              "ping -c20 google.com"   2 seconds ago       Up 1 second                                                                              suspicious_leavitt
+dc14e8462bf3        app                                                              "ping google.com"        2 minutes ago       Up 2 minutes                                                                             youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   5 minutes ago       Up 5 minutes        80/tcp                                                               elastic_knuth
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+dc14e8462bf3        app                                                              "ping google.com"        2 minutes ago       Up 2 minutes                                                                             youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   5 minutes ago       Up 5 minutes        80/tcp                                                               elastic_knuth
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+59a640aaefaf        app                                                              "ping -c20 google.com"   38 seconds ago      Exited (0) 17 seconds ago                                                                        suspicious_leavitt
+dc14e8462bf3        app                                                              "ping google.com"        2 minutes ago       Up 2 minutes                                                                                     youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   6 minutes ago       Up 6 minutes                80/tcp                                                               elastic_knuth
+2c9b407c3a34        app                                                              "/bin/sh"                8 minutes ago       Exited (0) 8 minutes ago                                                                         laughing_dijkstra
+
+/home/docker> docker container exec -it dc14e8462bf3 sh
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 ping google.com
+    5 root      0:00 sh
+    9 root      0:00 ps
+/ # exit
+
+/home/docker>
+
+/home/docker> docker container run -d app ping -c2 google.com
+8f39165b4b2b2728ffbc96f5c577b954925ec3f92ce3e589b6ef996ca996d211
+
+/home/docker> docker container logs 8f39165b4b
+PING google.com (172.217.160.142): 56 data bytes
+64 bytes from 172.217.160.142: seq=0 ttl=54 time=44.328 ms
+64 bytes from 172.217.160.142: seq=1 ttl=54 time=17.004 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 17.004/30.666/44.328 ms
+
+/home/docker> docker container run app ping -c2 google.com
+PING google.com (172.217.163.110): 56 data bytes
+64 bytes from 172.217.163.110: seq=0 ttl=54 time=16.721 ms
+64 bytes from 172.217.163.110: seq=1 ttl=54 time=13.976 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 13.976/15.348/16.721 ms
+
+/home/docker> docker container run nginx  ping -c2 google.com
+container_linux.go:265: starting container process caused "exec: \"ping\": executable file not found in $PATH"
+docker: Error response from daemon: oci runtime error: container_linux.go:265: starting container process caused "exec: \"ping\": executable file not found in $PATH".
+ERRO[0000] error waiting for container: context canceled
+
+/home/docker>
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+dc14e8462bf3        app                                                              "ping google.com"        8 minutes ago       Up 8 minutes                                                                             youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   12 minutes ago      Up 12 minutes       80/tcp                                                               elastic_knuth
+
+/home/docker> docker container exec -it dc14e8462bf3 sh
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 ping google.com
+   10 root      0:00 sh
+   16 root      0:00 ps
+/ # httpd
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.15. Set the 'ServerName' directive globally to suppress this message
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 ping google.com
+   10 root      0:00 sh
+   18 root      0:00 httpd
+   19 apache    0:00 httpd
+   20 apache    0:00 httpd
+   21 apache    0:00 httpd
+   22 apache    0:00 httpd
+   23 apache    0:00 httpd
+   24 root      0:00 ps
+/ # kill -9 18 19 20 21 22 23
+/ # kill -9 18 19 20 21 22 23
+sh: can't kill pid 18: No such process
+sh: can't kill pid 19: No such process
+sh: can't kill pid 20: No such process
+sh: can't kill pid 21: No such process
+sh: can't kill pid 22: No such process
+sh: can't kill pid 23: No such process
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 ping google.com
+   10 root      0:00 sh
+   25 root      0:00 ps
+/ # httpd -D FOREGROUND
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.15. Set the 'ServerName' directive globally to suppress this message
+^C/ # exit
+
+/home/docker>
+
+/home/docker> docker container run -d -p 9090:80 app httpd -D FOREGROUND
+864763a63f58ac607a98f3509a7d76731956ed5a08177490619637a77da0f11c
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+864763a63f58        app                                                              "httpd -D FOREGROUND"    10 seconds ago      Up 9 seconds        0.0.0.0:9090->80/tcp                                                 focused_haibt
+dc14e8462bf3        app                                                              "ping google.com"        14 minutes ago      Up 14 minutes                                                                            youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   18 minutes ago      Up 18 minutes       80/tcp                                                               elastic_knuth
+
+/home/docker> docker container exec -it 864763a63f58 sh
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 httpd -D FOREGROUND
+    5 apache    0:00 httpd -D FOREGROUND
+    6 apache    0:00 httpd -D FOREGROUND
+    7 apache    0:00 httpd -D FOREGROUND
+    8 apache    0:00 httpd -D FOREGROUND
+    9 apache    0:00 httpd -D FOREGROUND
+   10 apache    0:00 httpd -D FOREGROUND
+   11 root      0:00 sh
+   16 root      0:00 ps
+/ # exit
+
+/home/docker> docker container run app ping -c2 google.com > /tmp/log.txt
+
+/home/docker> cat /tmp/log.txt
+PING google.com (172.217.160.142): 56 data bytes
+64 bytes from 172.217.160.142: seq=0 ttl=54 time=16.258 ms
+64 bytes from 172.217.160.142: seq=1 ttl=54 time=14.384 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 14.384/15.321/16.258 ms
+
+/home/docker> docker container run -d app ping -c2 google.com > /tmp/log.txt
+
+/home/docker> docker container run -d app ping -c2 google.com > /tmp/log1.txt
+
+/home/docker> cat /tmp/log1.txt
+9de0b7aba7e641f5a41a5661e348667cf74eb34e5067cddde85219aeafd129bd
+
+/home/docker> docker container run -d app ping -c2 google.com
+821f25bfa33b905d217052da0d18ac195a5d16b37c29392c722d35073275bda0
+
+/home/docker> docker container logs 821f25bfa
+PING google.com (172.217.160.142): 56 data bytes
+64 bytes from 172.217.160.142: seq=0 ttl=54 time=19.230 ms
+64 bytes from 172.217.160.142: seq=1 ttl=54 time=14.341 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 14.341/16.785/19.230 ms
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+864763a63f58        app                                                              "httpd -D FOREGROUND"    10 minutes ago      Up 10 minutes       0.0.0.0:9090->80/tcp                                                 focused_haibt
+dc14e8462bf3        app                                                              "ping google.com"        25 minutes ago      Up 25 minutes                                                                            youthful_agnesi
+cdb42f2258db        nginx                                                            "nginx -g 'daemon ..."   28 minutes ago      Up 28 minutes       80/tcp                                                               elastic_knuth
+
+/home/docker> docker container exec -it 864763a63f58 sh
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 httpd -D FOREGROUND
+    5 apache    0:00 httpd -D FOREGROUND
+    6 apache    0:00 httpd -D FOREGROUND
+    7 apache    0:00 httpd -D FOREGROUND
+    8 apache    0:00 httpd -D FOREGROUND
+    9 apache    0:00 httpd -D FOREGROUND
+   10 apache    0:00 httpd -D FOREGROUND
+   17 root      0:00 sh
+   22 root      0:00 ps
+/ #
+/home/docker>
