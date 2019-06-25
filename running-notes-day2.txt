@@ -693,3 +693,121 @@ ffaeead73325        7 seconds ago       /bin/sh -c apk add apache2              
 1116144c8b314e8c04ba258e76bf9023ee58c1c620487e6fee7cf70928cc7a33
 
 /c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+
+
+---------------------------------------------------------------
+
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 9090/g" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> ls
+Dockerfile  docker-entrypoint.sh  mypage.html  myscript.sh
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container run --rm alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=558ad0f56439
+HOME=/root
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container run --rm alpine -e MYVAR=hello env
+container_linux.go:265: starting container process caused "exec: \"-e\": executable file not found in $PATH"
+docker: Error response from daemon: oci runtime error: container_linux.go:265: starting container process caused "exec: \"-e\": executable file not found in $PATH".
+ERRO[0000] error waiting for container: context canceled
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container run -e VAR=hello --rm alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=0377c111869e
+VAR=hello
+HOME=/root
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi docker-entrypoint.sh
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen ${APACHE_PORT}/g" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat Dockerfile
+FROM alpine
+LABEL description="http image with configurable port"
+RUN apk update
+RUN apk add apache2
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+COPY mypage.html /var/www/localhost/htdocs
+ENV APACHE_PORT 80
+#docker-entrypoint.sh httpd -D FOREGROUND
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image build -t app:latest -t app:5 .
+Sending build context to Docker daemon   5.12kB
+Step 1/10 : FROM alpine
+ ---> 4d90542f0623
+Step 2/10 : LABEL description "http image with configurable port"
+ ---> Using cache
+ ---> 8bd2f3b0054b
+Step 3/10 : RUN apk update
+ ---> Using cache
+ ---> 63ff1e369fc2
+Step 4/10 : RUN apk add apache2
+ ---> Using cache
+ ---> ffaeead73325
+Step 5/10 : COPY docker-entrypoint.sh /bin
+ ---> 5ae1b6b2e47d
+Step 6/10 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Running in 8d822f88d411
+ ---> 57a75e9fc920
+Removing intermediate container 8d822f88d411
+Step 7/10 : ENTRYPOINT docker-entrypoint.sh
+ ---> Running in e94979649ba0
+ ---> 0088f79923cc
+Removing intermediate container e94979649ba0
+Step 8/10 : CMD httpd -D FOREGROUND
+ ---> Running in 1d61b722ee37
+ ---> b8391dff7cec
+Removing intermediate container 1d61b722ee37
+Step 9/10 : COPY mypage.html /var/www/localhost/htdocs
+ ---> 3905a13e9f76
+Step 10/10 : ENV APACHE_PORT 80
+ ---> Running in 7f4d9f5c9a22
+ ---> 0e92924f971d
+Removing intermediate container 7f4d9f5c9a22
+Successfully built 0e92924f971d
+Successfully tagged app:latest
+Successfully tagged app:5
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cd
+
+/home/docker> docker container run -d -p 9393:8989 -e APACHE_PORT=8989 app
+97b5934e7de0c2aa02011b2330a10b95c84a8c6af58abddc7fe328ce2868e40f
+
+/home/docker> docker container exec 97b5934 env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=97b5934e7de0
+APACHE_PORT=8989
+HOME=/root
+
+/home/docker> docker container exec 97b5934 grep Listen /etc/apache2/hosts.conf
+grep: /etc/apache2/hosts.conf: No such file or directory
+
+/home/docker> docker container exec 97b5934 grep Listen /etc/apache2/httpd.conf
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+#Listen 12.34.56.78:80
+Listen 8989
+
+/home/docker>
