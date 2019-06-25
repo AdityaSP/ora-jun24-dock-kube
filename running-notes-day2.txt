@@ -306,3 +306,100 @@ PID   USER     TIME  COMMAND
    22 root      0:00 ps
 / #
 /home/docker>
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat > mypage.html
+<h1> My Code </h1>
+^C
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat mypage.html
+<h1> My Code </h1>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+CMD ["httpd", "-D", "FOREGROUND"]
+COPY mypage.html /var/www/localhost/htdocs
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> cat mypage.html
+<h1> My Code </h1>
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image build -t app:latest -t app:3 .
+Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM alpine
+ ---> 4d90542f0623
+Step 2/5 : RUN apk update
+ ---> Using cache
+ ---> 60ff1be135da
+Step 3/5 : RUN apk add apache2
+ ---> Using cache
+ ---> bd6b4a5af614
+Step 4/5 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> f0dbcaaa2aec
+Step 5/5 : COPY mypage.html /var/www/localhost/htdocs
+ ---> bdf89f173c3d
+Successfully built bdf89f173c3d
+Successfully tagged app:latest
+Successfully tagged app:3
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image build -t app:latest -t app:3 .
+Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM alpine
+ ---> 4d90542f0623
+Step 2/5 : RUN apk update
+ ---> Using cache
+ ---> 60ff1be135da
+Step 3/5 : RUN apk add apache2
+ ---> Using cache
+ ---> bd6b4a5af614
+Step 4/5 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> f0dbcaaa2aec
+Step 5/5 : COPY mypage1.html /var/www/localhost/htdocs
+COPY failed: stat /var/lib/docker/tmp/docker-builder056573873/mypage1.html: no such file or directory
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image build -t app:latest -t app:3
+"docker image build" requires exactly 1 argument.
+See 'docker image build --help'.
+
+Usage:  docker image build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker image history app
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+bdf89f173c3d        3 minutes ago       /bin/sh -c #(nop) COPY file:1b2e5998c64d1d...   19B     
+f0dbcaaa2aec        21 minutes ago      /bin/sh -c #(nop)  CMD ["httpd" "-D" "FORE...   0B      
+bd6b4a5af614        19 hours ago        /bin/sh -c apk add apache2                      3.6MB   
+60ff1be135da        19 hours ago        /bin/sh -c apk update                           1.42MB  
+4d90542f0623        5 days ago          /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           5 days ago          /bin/sh -c #(nop) ADD file:fef3b00b3ae6396...   5.58MB  
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app> docker container run -d -p9292:80 app
+9bc249180a0636be115f63bc4eecc08ffeae57c153303cbda6000730d381f1e7
+
+/c/Users/Dell lap/docker-workshop/jun24/ora-jun24-dock-kube/app>
