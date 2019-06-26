@@ -4,7 +4,7 @@ metadata:
   name: helloworld-dep
 spec:
   revisionHistoryLimit: 10
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -12,8 +12,8 @@ spec:
     spec:
       containers:
       - name: web
-        image: nginx
-#        imagePullPolicy: IfNotPresent
+        image: app
+        imagePullPolicy: IfNotPresent
         ports:
         - name: nginxport
           containerPort: 80

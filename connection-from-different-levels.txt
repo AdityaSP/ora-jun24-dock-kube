@@ -1,0 +1,24 @@
+From WINDOWS
+λ curl 192.168.99.150:31001
+
+From MINIKUBE
+/home/docker> curl localhost:31001
+/home/docker> curl 10.98.220.82:8888
+/home/docker> curl 172.17.0.15:80
+
+From POD
+/ # curl localhost:80
+/ # curl 10.98.220.82:8888
+/ # curl 192.168.99.150:31001
+/ # curl 172.17.0.14:80
+/ # curl hw-svc:8888
+/ # cat /etc/resolv.conf
+nameserver 10.96.0.10
+search default.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+/ # nslookup hw-svc
+nslookup: can't resolve '(null)': Name does not resolve
+
+Name:      hw-svc
+Address 1: 10.98.220.82 hw-svc.default.svc.cluster.local
+/ #
