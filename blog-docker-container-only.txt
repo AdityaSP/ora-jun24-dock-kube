@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1. create network
 docker network create blog-nw
 
@@ -5,4 +6,13 @@ docker network create blog-nw
 docker container run -d -e MYSQL_ROOT_PASSWORD=welcome --network blog-nw -v /tmp/blogs:/var/lib/mysql --name blog-db mysql:5.7
 
 3. bring up ghost
+=======
+1. create network
+docker network create blog-nw
+
+2. bring up db
+docker container run -d -e MYSQL_ROOT_PASSWORD=welcome --network blog-nw -v /tmp/blogs:/var/lib/mysql --name blog-db mysql:5.7
+
+3. bring up ghost
+>>>>>>> 3e4679bdd0b0b44d051c0a3a522d118c3920db66
 docker container run -d -p 8989:2368 --network blog-nw --name blog-ghost -e database__client=mysql -e database__connection__host=blog-db -e database__connection__user=root -e database__connection__password=welcome -e database__connection__database=ghost -e database__connection__port=3306 ghost:1-alpine 
