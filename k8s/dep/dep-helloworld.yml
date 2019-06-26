@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld-dep
+spec:
+  revisionHistoryLimit: 10
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: web
+        image: nginx
+#        imagePullPolicy: IfNotPresent
+        ports:
+        - name: nginxport
+          containerPort: 80
