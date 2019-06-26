@@ -85,3 +85,31 @@ No resources found.
 Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
 λ                                                                                               
                                                                                                 
+
+------------------------------------------------------
+
+λ kubectl apply -f rc/rc-helloworld.yml                                                         
+replicationcontroller/helloworld-controller created                                             
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get replicationcontroller                                                             
+NAME                    DESIRED   CURRENT   READY   AGE                                         
+helloworld-controller   2         2         2       23s                                         
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get rc                                                                                
+NAME                    DESIRED   CURRENT   READY   AGE                                         
+helloworld-controller   2         2         2       32s                                         
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get pods                                                                              
+NAME                          READY   STATUS    RESTARTS   AGE                                  
+helloworld-controller-r2bcc   1/1     Running   0          56s                                  
+helloworld-controller-z6222   1/1     Running   0          56s                                  
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get pods -o wide                                                                      
+NAME                          READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINA
+TED NODE   READINESS GATES                                                                      
+helloworld-controller-r2bcc   1/1     Running   0          93s   172.17.0.15   minikube   <none>
+           <none>                                                                               
+helloworld-controller-z6222   1/1     Running   0          93s   172.17.0.14   minikube   <none>
+           <none>                                                                               
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ                                                                                               
