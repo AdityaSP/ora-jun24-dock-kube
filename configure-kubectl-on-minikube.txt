@@ -1,0 +1,15 @@
+/home/docker> sudo su
+
+/home/docker> curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 40.9M  100 40.9M    0     0  1499k      0  0:00:28  0:00:28 --:--:-- 2560k
+
+/home/docker> export KUBECONFIG=/var/lib/localkube/kubeconfig
+
+/home/docker> chmod + kubectl
+
+/home/docker> ./kubectl get pods
+No resources found.
+
+/home/docker>
