@@ -1,0 +1,87 @@
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get pods                                                                              
+No resources found.                                                                             
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ                                                                                               
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ ls pod/pod-helloworld.yml                                                                     
+pod/pod-helloworld.yml                                                                          
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl apply -f pod/pod-helloworld.yml                                                       
+pod/my-nginx created                                                                            
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get pods                                                                              
+NAME       READY   STATUS    RESTARTS   AGE                                                     
+my-nginx   1/1     Running   0          80s                                                     
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get pod                                                                               
+NAME       READY   STATUS    RESTARTS   AGE                                                     
+my-nginx   1/1     Running   0          108s                                                    
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get po                                                                                
+NAME       READY   STATUS    RESTARTS   AGE                                                     
+my-nginx   1/1     Running   0          112s                                                    
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl describe pod my-nginx                                                                 
+Name:         my-nginx                                                                          
+Namespace:    default                                                                           
+Node:         minikube/192.168.99.150                                                           
+Start Time:   Wed, 26 Jun 2019 11:32:50 +0530                                                   
+Labels:       app=helloworld                                                                    
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:                                 
+                {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"app":"he
+lloworld"},"name":"my-nginx","namespace":"default"},"spec"...                                   
+Status:       Running                                                                           
+IP:           172.17.0.14                                                                       
+Containers:                                                                                     
+  nginx:                                                                                        
+    Container ID:   docker://ee684b1d1e52e7dafaa70eeb97798b6b3d95d47ac5adafdfea5a1db124e5a83e   
+    Image:          nginx:alpine                                                                
+    Image ID:       docker-pullable://nginx@sha256:b126fee6820be927b1e04ae36b3f51aa47d9b73bf6b18
+26ff19a59d22b2b4c63                                                                             
+    Port:           80/TCP                                                                      
+    Host Port:      0/TCP                                                                       
+    State:          Running                                                                     
+      Started:      Wed, 26 Jun 2019 11:32:52 +0530                                             
+    Ready:          True                                                                        
+    Restart Count:  0                                                                           
+    Environment:    <none>                                                                      
+    Mounts:                                                                                     
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-448nd (ro)               
+Conditions:                                                                                     
+  Type           Status                                                                         
+  Initialized    True                                                                           
+  Ready          True                                                                           
+  PodScheduled   True                                                                           
+Volumes:                                                                                        
+  default-token-448nd:                                                                          
+    Type:        Secret (a volume populated by a Secret)                                        
+    SecretName:  default-token-448nd                                                            
+    Optional:    false                                                                          
+QoS Class:       BestEffort                                                                     
+Node-Selectors:  <none>                                                                         
+Tolerations:     <none>                                                                         
+Events:                                                                                         
+  Type    Reason                 Age    From               Message                              
+  ----    ------                 ----   ----               -------                              
+  Normal  Scheduled              2m49s  default-scheduler  Successfully assigned my-nginx to min
+ikube                                                                                           
+  Normal  SuccessfulMountVolume  2m48s  kubelet, minikube  MountVolume.SetUp succeeded for volum
+e "default-token-448nd"                                                                         
+  Normal  Pulled                 2m47s  kubelet, minikube  Container image "nginx:alpine" alread
+y present on machine                                                                            
+  Normal  Created                2m47s  kubelet, minikube  Created container                    
+  Normal  Started                2m46s  kubelet, minikube  Started container                    
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get po                                                                                
+NAME       READY   STATUS    RESTARTS   AGE                                                     
+my-nginx   1/1     Running   0          41m                                                     
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl delete pod my-nginx                                                                   
+pod "my-nginx" deleted                                                                          
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ kubectl get po                                                                                
+No resources found.                                                                             
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)                          
+λ                                                                                               
+                                                                                                
