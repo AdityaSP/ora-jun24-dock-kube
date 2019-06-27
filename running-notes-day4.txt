@@ -426,3 +426,86 @@ kube-proxy-v6n2r                    1/1     Running   0          144m
 kube-scheduler-k8smaster            1/1     Running   0          153m
 Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
 λ
+
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ #kubectl expose deploy helloworld-dep --type NodePort
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3h10m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl expose deploy helloworld-dep --type NodePort
+service/helloworld-dep exposed
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get svc
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+helloworld-dep   NodePort    10.98.30.136   <none>        80:32592/TCP   8s
+kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP        3h10m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl describe svc helloworld-dep
+Name:                     helloworld-dep
+Namespace:                default
+Labels:                   app=helloworld
+Annotations:              <none>
+Selector:                 app=helloworld
+Type:                     NodePort
+IP:                       10.98.30.136
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  32592/TCP
+Endpoints:                192.168.2.4:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system
+NAME                                READY   STATUS    RESTARTS   AGE
+canal-cdpd2                         3/3     Running   0          113m
+canal-xdf4r                         3/3     Running   0          113m
+coredns-5c98db65d4-kss68            1/1     Running   0          3h33m
+coredns-5c98db65d4-lml6r            1/1     Running   0          3h33m
+etcd-k8smaster                      1/1     Running   0          3h33m
+kube-apiserver-k8smaster            1/1     Running   0          3h32m
+kube-controller-manager-k8smaster   1/1     Running   0          3h33m
+kube-proxy-d9vjn                    1/1     Running   0          3h33m
+kube-proxy-v6n2r                    1/1     Running   0          3h23m
+kube-scheduler-k8smaster            1/1     Running   0          3h32m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system -o wide
+NAME                                READY   STATUS    RESTARTS   AGE     IP              NODE
+      NOMINATED NODE   READINESS GATES
+canal-cdpd2                         3/3     Running   0          113m    192.167.10.71   k8snode1    <none>           <none>
+canal-xdf4r                         3/3     Running   0          113m    192.167.10.70   k8smaster   <none>           <none>
+coredns-5c98db65d4-kss68            1/1     Running   0          3h33m   192.168.2.3     k8snode1    <none>           <none>
+coredns-5c98db65d4-lml6r            1/1     Running   0          3h33m   192.168.2.2     k8snode1    <none>           <none>
+etcd-k8smaster                      1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-apiserver-k8smaster            1/1     Running   0          3h32m   192.167.10.70   k8smaster   <none>           <none>
+kube-controller-manager-k8smaster   1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-d9vjn                    1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-v6n2r                    1/1     Running   0          3h24m   192.167.10.71   k8snode1    <none>           <none>
+kube-scheduler-k8smaster            1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl scale deploy coredns -n kube-system --replicas 3
+deployment.extensions/coredns scaled
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system -o wide
+NAME                                READY   STATUS    RESTARTS   AGE     IP              NODE
+      NOMINATED NODE   READINESS GATES
+canal-cdpd2                         3/3     Running   0          114m    192.167.10.71   k8snode1    <none>           <none>
+canal-xdf4r                         3/3     Running   0          114m    192.167.10.70   k8smaster   <none>           <none>
+coredns-5c98db65d4-fdhlq            0/1     Running   0          3s      192.168.0.19    k8smaster   <none>           <none>
+coredns-5c98db65d4-kss68            1/1     Running   0          3h34m   192.168.2.3     k8snode1    <none>           <none>
+coredns-5c98db65d4-lml6r            1/1     Running   0          3h34m   192.168.2.2     k8snode1    <none>           <none>
+etcd-k8smaster                      1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-apiserver-k8smaster            1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-controller-manager-k8smaster   1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-d9vjn                    1/1     Running   0          3h34m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-v6n2r                    1/1     Running   0          3h24m   192.167.10.71   k8snode1    <none>           <none>
+kube-scheduler-k8smaster            1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get svc
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+helloworld-dep   NodePort    10.98.30.136   <none>        80:32592/TCP   27m
+kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP        3h38m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
