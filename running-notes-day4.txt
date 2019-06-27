@@ -130,3 +130,43 @@ hw-svc           NodePort    10.98.220.82     <none>        8888:31001/TCP   13d
 kubernetes       ClusterIP   10.96.0.1        <none>        443/TCP          197d
 Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
 λ
+
+
+-------------------------------------------------------------------------------------
+
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ cd newcluster/
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ ls
+canal.yml               kube-master.sh     node-output.txt  readme.md  Vagrantfile
+kube-installations.sh*  master-output.txt  rbac.yml         setup.txt
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl apply -f rbac.yml
+clusterrole.rbac.authorization.k8s.io/calico created
+clusterrole.rbac.authorization.k8s.io/flannel created
+clusterrolebinding.rbac.authorization.k8s.io/canal-flannel created
+clusterrolebinding.rbac.authorization.k8s.io/canal-calico created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl apply -f canal.yml
+configmap/canal-config created
+daemonset.extensions/canal created
+customresourcedefinition.apiextensions.k8s.io/felixconfigurations.crd.projectcalico.org created
+
+customresourcedefinition.apiextensions.k8s.io/bgpconfigurations.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/ippools.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/clusterinformations.crd.projectcalico.org created
+
+customresourcedefinition.apiextensions.k8s.io/globalnetworkpolicies.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/networkpolicies.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/globalnetworksets.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/hostendpoints.crd.projectcalico.org created
+serviceaccount/canal created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get nodes
+NAME        STATUS   ROLES    AGE    VERSION
+k8smaster   Ready    master   103m   v1.15.0
+k8snode1    Ready    <none>   93m    v1.15.0
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
