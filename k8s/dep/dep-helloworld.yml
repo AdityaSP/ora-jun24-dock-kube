@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: app
+        image: nginx:alpine
         imagePullPolicy: IfNotPresent
         ports:
         - name: nginxport
