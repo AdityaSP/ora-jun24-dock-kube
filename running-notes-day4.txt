@@ -170,3 +170,259 @@ k8smaster   Ready    master   103m   v1.15.0
 k8snode1    Ready    <none>   93m    v1.15.0
 Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
 λ
+
+
+
+----------------------------------------------------------------------
+
+
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl apply -f rbac.yml
+clusterrole.rbac.authorization.k8s.io/calico created
+clusterrole.rbac.authorization.k8s.io/flannel created
+clusterrolebinding.rbac.authorization.k8s.io/canal-flannel created
+clusterrolebinding.rbac.authorization.k8s.io/canal-calico created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl apply -f canal.yml
+configmap/canal-config created
+daemonset.extensions/canal created
+customresourcedefinition.apiextensions.k8s.io/felixconfigurations.crd.projectcalico.org created
+
+customresourcedefinition.apiextensions.k8s.io/bgpconfigurations.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/ippools.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/clusterinformations.crd.projectcalico.org created
+
+customresourcedefinition.apiextensions.k8s.io/globalnetworkpolicies.crd.projectcalico.org creat ed
+customresourcedefinition.apiextensions.k8s.io/networkpolicies.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/globalnetworksets.crd.projectcalico.org created
+customresourcedefinition.apiextensions.k8s.io/hostendpoints.crd.projectcalico.org created
+serviceaccount/canal created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get nodes
+NAME        STATUS   ROLES    AGE    VERSION
+k8smaster   Ready    master   103m   v1.15.0
+k8snode1    Ready    <none>   93m    v1.15.0
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get ns
+NAME              STATUS   AGE
+default           Active   109m
+kube-node-lease   Active   109m
+kube-public       Active   109m
+kube-system       Active   109m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods
+No resources found.
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system
+NAME                                READY   STATUS    RESTARTS   AGE
+canal-cdpd2                         3/3     Running   0          9m30s
+canal-xdf4r                         3/3     Running   0          9m30s
+coredns-5c98db65d4-kss68            1/1     Running   0          109m
+coredns-5c98db65d4-lml6r            1/1     Running   0          109m
+etcd-k8smaster                      1/1     Running   0          108m
+kube-apiserver-k8smaster            1/1     Running   0          108m
+kube-controller-manager-k8smaster   1/1     Running   0          108m
+kube-proxy-d9vjn                    1/1     Running   0          109m
+kube-proxy-v6n2r                    1/1     Running   0          99m
+kube-scheduler-k8smaster            1/1     Running   0          108m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system -o wide
+NAME                                READY   STATUS    RESTARTS   AGE    IP              NODE
+     NOMINATED NODE   READINESS GATES
+canal-cdpd2                         3/3     Running   0          10m    192.167.10.71   k8snode 1    <none>           <none>
+canal-xdf4r                         3/3     Running   0          10m    192.167.10.70   k8smast er   <none>           <none>
+coredns-5c98db65d4-kss68            1/1     Running   0          110m   192.168.2.3     k8snode 1    <none>           <none>
+coredns-5c98db65d4-lml6r            1/1     Running   0          110m   192.168.2.2     k8snode 1    <none>           <none>
+etcd-k8smaster                      1/1     Running   0          109m   192.167.10.70   k8smast er   <none>           <none>
+kube-apiserver-k8smaster            1/1     Running   0          109m   192.167.10.70   k8smast er   <none>           <none>
+kube-controller-manager-k8smaster   1/1     Running   0          109m   192.167.10.70   k8smast er   <none>           <none>
+kube-proxy-d9vjn                    1/1     Running   0          110m   192.167.10.70   k8smast er   <none>           <none>
+kube-proxy-v6n2r                    1/1     Running   0          100m   192.167.10.71   k8snode 1    <none>           <none>
+kube-scheduler-k8smaster            1/1     Running   0          109m   192.167.10.70   k8smast er   <none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get nodes
+NAME        STATUS   ROLES    AGE    VERSION
+k8smaster   Ready    master   116m   v1.15.0
+k8snode1    Ready    <none>   106m   v1.15.0
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system
+NAME                                READY   STATUS    RESTARTS   AGE
+canal-cdpd2                         3/3     Running   0          16m
+canal-xdf4r                         3/3     Running   0          16m
+coredns-5c98db65d4-kss68            1/1     Running   0          116m
+coredns-5c98db65d4-lml6r            1/1     Running   0          116m
+etcd-k8smaster                      1/1     Running   0          116m
+kube-apiserver-k8smaster            1/1     Running   0          116m
+kube-controller-manager-k8smaster   1/1     Running   0          116m
+kube-proxy-d9vjn                    1/1     Running   0          116m
+kube-proxy-v6n2r                    1/1     Running   0          107m
+kube-scheduler-k8smaster            1/1     Running   0          116m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system -o wide
+NAME                                READY   STATUS    RESTARTS   AGE    IP              NODE
+    NOMINATED NODE   READINESS GATES
+canal-cdpd2                         3/3     Running   0          17m    192.167.10.71   k8snode1
+    <none>           <none>
+canal-xdf4r                         3/3     Running   0          17m    192.167.10.70   k8smaster   <none>           <none>
+coredns-5c98db65d4-kss68            1/1     Running   0          117m   192.168.2.3     k8snode1
+    <none>           <none>
+coredns-5c98db65d4-lml6r            1/1     Running   0          117m   192.168.2.2     k8snode1
+    <none>           <none>
+etcd-k8smaster                      1/1     Running   0          116m   192.167.10.70   k8smaster   <none>           <none>
+kube-apiserver-k8smaster            1/1     Running   0          116m   192.167.10.70   k8smaster   <none>           <none>
+kube-controller-manager-k8smaster   1/1     Running   0          116m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-d9vjn                    1/1     Running   0          117m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-v6n2r                    1/1     Running   0          107m   192.167.10.71   k8snode1
+    <none>           <none>
+kube-scheduler-k8smaster            1/1     Running   0          116m   192.167.10.70   k8smaster   <none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl apply -f ../dep/dep-helloworld.yml
+deployment.extensions/helloworld-dep created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl describe deploy helloworld-dep
+Name:                   helloworld-dep
+Namespace:              default
+CreationTimestamp:      Thu, 27 Jun 2019 15:06:55 +0530
+Labels:                 app=helloworld
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kubectl.kubernetes.io/last-applied-configuration:
+                          {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"helloworld-dep","namespace":"default"},"spec":...
+Selector:               app=helloworld
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:  app=helloworld
+  Containers:
+   web:
+    Image:        nginx:alpine
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   helloworld-dep-85d7854f8b (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  86s   deployment-controller  Scaled up replica set helloworld-dep-85d7854f8b to 1
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get rs
+NAME                        DESIRED   CURRENT   READY   AGE
+helloworld-dep-85d7854f8b   1         1         1       106s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl describe rs helloworld-dep-85d7854f8b
+Name:           helloworld-dep-85d7854f8b
+Namespace:      default
+Selector:       app=helloworld,pod-template-hash=85d7854f8b
+Labels:         app=helloworld
+                pod-template-hash=85d7854f8b
+Annotations:    deployment.kubernetes.io/desired-replicas: 1
+                deployment.kubernetes.io/max-replicas: 2
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/helloworld-dep
+Replicas:       1 current / 1 desired
+Pods Status:    1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=helloworld
+           pod-template-hash=85d7854f8b
+  Containers:
+   web:
+    Image:        nginx:alpine
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  2m2s  replicaset-controller  Created pod: helloworld-dep-85d7854f8b-q4fvv
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+helloworld-dep-85d7854f8b-q4fvv   1/1     Running   0          2m23s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl describe pod helloworld-dep-85d7854f8b-q4fvv
+Name:           helloworld-dep-85d7854f8b-q4fvv
+Namespace:      default
+Priority:       0
+Node:           k8snode1/192.167.10.71
+Start Time:     Thu, 27 Jun 2019 15:06:56 +0530
+Labels:         app=helloworld
+                pod-template-hash=85d7854f8b
+Annotations:    cni.projectcalico.org/podIP: 192.168.2.4/32
+Status:         Running
+IP:             192.168.2.4
+Controlled By:  ReplicaSet/helloworld-dep-85d7854f8b
+Containers:
+  web:
+    Container ID:   docker://9aa71e9561a52a5c8330dfbb2725d26ab4f879287c5cce62129af5512c1f2503
+    Image:          nginx:alpine
+    Image ID:       docker-pullable://nginx@sha256:61e3db30b1334b1fa0a2e71b86625188f76653565d515d5f74ecc55a8fb91ce9
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Thu, 27 Jun 2019 15:06:58 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-slgn2 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-slgn2:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-slgn2
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m31s  default-scheduler  Successfully assigned default/helloworld-dep-85d7854f8b-q4fvv to k8snode1
+  Normal  Pulled     2m30s  kubelet, k8snode1  Container image "nginx:alpine" already present on machine
+  Normal  Created    2m30s  kubelet, k8snode1  Created container web
+  Normal  Started    2m29s  kubelet, k8snode1  Started container web
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -o wide
+NAME                              READY   STATUS    RESTARTS   AGE     IP            NODE
+NOMINATED NODE   READINESS GATES
+helloworld-dep-85d7854f8b-q4fvv   1/1     Running   0          4m43s   192.168.2.4   k8snode1
+<none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get pods -n kube-system
+NAME                                READY   STATUS    RESTARTS   AGE
+canal-cdpd2                         3/3     Running   0          53m
+canal-xdf4r                         3/3     Running   0          53m
+coredns-5c98db65d4-kss68            1/1     Running   0          153m
+coredns-5c98db65d4-lml6r            1/1     Running   0          153m
+etcd-k8smaster                      1/1     Running   0          153m
+kube-apiserver-k8smaster            1/1     Running   0          152m
+kube-controller-manager-k8smaster   1/1     Running   0          153m
+kube-proxy-d9vjn                    1/1     Running   0          153m
+kube-proxy-v6n2r                    1/1     Running   0          144m
+kube-scheduler-k8smaster            1/1     Running   0          153m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
