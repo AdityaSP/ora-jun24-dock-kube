@@ -1,0 +1,132 @@
+Dell lap@Dell ~
+λ cd docker-workshop/jun24/ora-jun24-dock-kube/k8s/
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                             READY   STATUS    RESTARTS   AGE
+helloworld-dep-67ddfbbb4-6885w   1/1     Running   1          17h
+helloworld-dep-67ddfbbb4-jqhgp   1/1     Running   1          17h
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl delete deploy helloworld-dep
+deployment.extensions "helloworld-dep" deleted
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f blog/blog-db.yml
+deployment.extensions/blog-db-dep created
+service/blog-db-svc created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+blog-db-dep-654dfc76d9-kxz97   1/1     Running   0          58s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods -o wide
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE       NOMIN ATED NODE   READINESS GATES
+blog-db-dep-654dfc76d9-kxz97   1/1     Running   0          67s   172.17.0.5   minikube   <none >           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl describe svc blog-db-svc
+Name:              blog-db-svc
+Namespace:         default
+Labels:            <none>
+Annotations:       kubectl.kubernetes.io/last-applied-configuration:
+                     {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"blog-db-svc","namespace":"default"},"spec":{"ports":[{"port":8888...
+Selector:          app=blog-db
+Type:              ClusterIP
+IP:                10.106.133.211
+Port:              <unset>  8888/TCP
+TargetPort:        dbport/TCP
+Endpoints:         172.17.0.5:3306
+Session Affinity:  None
+Events:            <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f blog/blog-ghost.yml
+service/blog-ghost-svc created
+Error from server (BadRequest): error when creating "blog/blog-ghost.yml": Deployment in version "v1beta1" cannot be handled as a Deployment: v1beta1.Deployment: Spec: v1beta1.DeploymentSpec: Template: v1.PodTemplateSpec: Spec: v1.PodSpec: Containers: []v1.Container: v1.Container: Env: []v1.EnvVar: v1.EnvVar: Value: ReadString: expects " or n, parsing 1296 ...,"value":8... at {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{"kubectl.kubernetes.io/last-applied-configuration":"{\"apiVersion\":\"extensions/v1beta1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"blog-ghost-dep\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"template\":{\"metadata\":{\"labels\":{\"app\":\"blog-ghost\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"database__client\",\"value\":\"mysql\"},{\"name\":\"database__connection__host\",\"value\":\"blog-db-svc\"},{\"name\":\"database__connection__port\",\"value\":8888},{\"name\":\"database__connection__user\",\"value\":\"root\"},{\"name\":\"database__connection__password\",\"value\":\"welcome\"},{\"name\":\"database__connection__database\",\"value\":\"ghost\"}],\"image\":\"ghost:1-alpine\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"ghost\",\"ports\":[{\"containerPort\":2368,\"name\":\"ghostport\"}]}]}}}}\n"},"name":"blog-ghost-dep","namespace":"default"},"spec":{"replicas":1,"revisionHistoryLimit":10,"template":{"metadata":{"labels":{"app":"blog-ghost"}},"spec":{"containers":[{"env":[{"name":"database__client","value":"mysql"},{"name":"database__connection__host","value":"blog-db-svc"},{"name":"database__connection__port","value":8888},{"name":"database__connection__user","value":"root"},{"name":"database__connection__password","value":"welcome"},{"name":"database__connection__database","value":"ghost"}],"image":"ghost:1-alpine","imagePullPolicy":"IfNotPresent","name":"ghost","ports":[{"containerPort":2368,"name":"ghostport"}]}]}}}}
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl describe service/blog-ghost-svc
+Name:                     blog-ghost-svc
+Namespace:                default
+Labels:                   <none>
+Annotations:              kubectl.kubernetes.io/last-applied-configuration:
+                            {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"blog-ghost-svc","namespace":"default"},"spec":{"ports":[{"nodePor...
+Selector:                 app=blog-ghost
+Type:                     NodePort
+IP:                       10.97.220.110
+Port:                     <unset>  8888/TCP
+TargetPort:               ghostport/TCP
+NodePort:                 <unset>  32005/TCP
+Endpoints:                <none>
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f blog/blog-ghost.yml
+deployment.extensions/blog-ghost-dep created
+service/blog-ghost-svc unchanged
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+blog-db-dep-654dfc76d9-kxz97      1/1     Running   0          23m
+blog-ghost-dep-86bb9fcd75-h2wkf   1/1     Running   0          23s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl describe service/blog-ghost-svc
+Name:                     blog-ghost-svc
+Namespace:                default
+Labels:                   <none>
+Annotations:              kubectl.kubernetes.io/last-applied-configuration:
+                            {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"blog-ghost-svc","namespace":"default"},"spec":{"ports":[{"nodePor...
+Selector:                 app=blog-ghost
+Type:                     NodePort
+IP:                       10.97.220.110
+Port:                     <unset>  8888/TCP
+TargetPort:               ghostport/TCP
+NodePort:                 <unset>  32005/TCP
+Endpoints:                172.17.0.8:2368
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+blog-db-dep-654dfc76d9-kxz97      1/1     Running   0          24m
+blog-ghost-dep-86bb9fcd75-h2wkf   1/1     Running   0          46s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl exec blog-db-dep-654dfc76d9-kxz97 -- mysql -uroot -pwelcome
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl exec -it blog-db-dep-654dfc76d9-kxz97 -- mysql -uroot -pwelcome
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 35
+Server version: 5.7.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| ghost              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> exit
+Bye
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get svc
+NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+blog-db-svc      ClusterIP   10.106.133.211   <none>        8888/TCP         26m
+blog-ghost-svc   NodePort    10.97.220.110    <none>        8888:32005/TCP   11m
+hw-svc           NodePort    10.98.220.82     <none>        8888:31001/TCP   13d
+kubernetes       ClusterIP   10.96.0.1        <none>        443/TCP          197d
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ
