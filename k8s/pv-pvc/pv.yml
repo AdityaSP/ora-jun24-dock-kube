@@ -11,4 +11,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/proj"
+    path: "/vagrant/proj"
