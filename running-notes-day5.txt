@@ -38,3 +38,122 @@ Got permission denied while trying to connect to the Docker daemon socket at uni
 vagrant@k8smaster:~/build-machine$ sudo su
 root@k8smaster:/home/vagrant/build-machine# docker build -t build-machine .
 Sending build context to Docker daemon  2.56 kB
+
+
+
+--------------------------------------------------------------------------------------------------
+root@k8smaster:/home/vagrant/build-machine# docker container run -d -p 5005:8080 -v /var/run/docker.sock:/var/run/docker.sock -v /etc/kubernetes/admin.conf:/config -e KUBECONFIG=/config -v /vagrant/jenkins_home5:/var/jenkins_home --name builder build-machine
+4e5e307ab1ffc0024bc80a14ada16626a564333cd8a824231e8fa20bd6e6673f
+root@k8smaster:/home/vagrant/build-machine# docker container exec builder docker container ls
+CONTAINER ID        IMAGE                  COMMAND                  CREATED              STATUS              PORTS                               NAMES
+4e5e307ab1ff        build-machine          "/sbin/tini -- /us..."   About a minute ago   Up About a minute   50000/tcp, 0.0.0.0:5005->8080/tcp   builder
+f714bfb5848a        3030acce0214           "start_runit"            2 hours ago          Up 2 hours                                              k8s_calico-node_canal-xdf4r_kube-system_ac842d0b-a9b1-45a4-b765-1aaf830493fd_2
+01f6f97bde7f        eb516548c180           "/coredns -conf /e..."   2 hours ago          Up 2 hours                                              k8s_coredns_coredns-5c98db65d4-fdhlq_kube-system_6a3d8bf0-30cf-41c2-b317-15d6661843da_1
+4d2ace4906c3        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_coredns-5c98db65d4-fdhlq_kube-system_6a3d8bf0-30cf-41c2-b317-15d6661843da_1
+f2ff10982b78        2b736d06ca4c           "/opt/bin/flanneld..."   2 hours ago          Up 2 hours                                              k8s_kube-flannel_canal-xdf4r_kube-system_ac842d0b-a9b1-45a4-b765-1aaf830493fd_1
+78b9d170bd8e        91d623a7690c           "/install-cni.sh"        2 hours ago          Up 2 hours                                              k8s_install-cni_canal-xdf4r_kube-system_ac842d0b-a9b1-45a4-b765-1aaf830493fd_1
+42cbc7fa26af        d235b23c3570           "/usr/local/bin/ku..."   2 hours ago          Up 2 hours                                              k8s_kube-proxy_kube-proxy-d9vjn_kube-system_7d3ba699-66b7-4a2e-9620-fbf48c6e6be0_1
+e6b41a852b80        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_canal-xdf4r_kube-system_ac842d0b-a9b1-45a4-b765-1aaf830493fd_1
+c16b9b52da83        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_kube-proxy-d9vjn_kube-system_7d3ba699-66b7-4a2e-9620-fbf48c6e6be0_1
+87610cc13fc5        2c4adeb21b4f           "etcd --advertise-..."   2 hours ago          Up 2 hours                                              k8s_etcd_etcd-k8smaster_kube-system_e5cd44264957d2c95fa822f9036af82e_1
+1a6ade286500        2d3813851e87           "kube-scheduler --..."   2 hours ago          Up 2 hours                                              k8s_kube-scheduler_kube-scheduler-k8smaster_kube-system_31d9ee8b7fb12e797dc981a8686f6b2b_1
+af59af03c64d        8328bb49b652           "kube-controller-m..."   2 hours ago          Up 2 hours                                              k8s_kube-controller-manager_kube-controller-manager-k8smaster_kube-system_be2b9121367c98cdc3e590ba944e4906_1
+52f42d9a0012        201c7a840312           "kube-apiserver --..."   2 hours ago          Up 2 hours                                              k8s_kube-apiserver_kube-apiserver-k8smaster_kube-system_5ef585717c4d76df575032942f6f21d4_1
+a92ad63d74b6        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_etcd-k8smaster_kube-system_e5cd44264957d2c95fa822f9036af82e_1
+9b254743249a        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_kube-scheduler-k8smaster_kube-system_31d9ee8b7fb12e797dc981a8686f6b2b_1
+d4c407b12852        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_kube-apiserver-k8smaster_kube-system_5ef585717c4d76df575032942f6f21d4_1
+a5b12a63d8b0        k8s.gcr.io/pause:3.1   "/pause"                 2 hours ago          Up 2 hours                                              k8s_POD_kube-controller-manager-k8smaster_kube-system_be2b9121367c98cdc3e590ba944e4906_1
+root@k8smaster:/home/vagrant/build-machine# docker container exec builder kubectl get nodes
+NAME        STATUS   ROLES    AGE   VERSION
+k8smaster   Ready    master   23h   v1.15.0
+k8snode1    Ready    <none>   23h   v1.15.0
+root@k8smaster:/home/vagrant/build-machine# docker container logs builder
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Jun 28, 2019 6:35:04 AM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @1720ms to org.eclipse.jetty.util.log.JavaUtilLog
+Jun 28, 2019 6:35:04 AM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jun 28, 2019 6:36:28 AM org.eclipse.jetty.server.handler.ContextHandler setContextPath
+WARNING: Empty contextPath
+Jun 28, 2019 6:36:28 AM org.eclipse.jetty.server.Server doStart
+INFO: jetty-9.4.z-SNAPSHOT; built: 2019-02-15T16:53:49.381Z; git: eb70b240169fcf1abbd86af36482d1c49826fa0b; jvm 1.8.0_212-b04
+Jun 28, 2019 6:36:37 AM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
+INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+Jun 28, 2019 6:36:38 AM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: DefaultSessionIdManager workerName=node0
+Jun 28, 2019 6:36:38 AM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: No SessionScavenger set, using defaults
+Jun 28, 2019 6:36:38 AM org.eclipse.jetty.server.session.HouseKeeper startScavenging
+INFO: node0 Scavenging every 660000ms
+Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Jun 28, 2019 6:36:44 AM org.eclipse.jetty.server.handler.ContextHandler doStart
+INFO: Started w.@21526f6c{Jenkins v2.176.1,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+Jun 28, 2019 6:36:44 AM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@1b0a7baf{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+Jun 28, 2019 6:36:44 AM org.eclipse.jetty.server.Server doStart
+INFO: Started @102369ms
+Jun 28, 2019 6:36:44 AM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v4.0 running: controlPort=disabled
+Jun 28, 2019 6:36:48 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Jun 28, 2019 6:36:48 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Jun 28, 2019 6:36:55 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Jun 28, 2019 6:36:55 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Jun 28, 2019 6:36:55 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Jun 28, 2019 6:36:58 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Jun 28, 2019 6:36:58 AM hudson.model.AsyncPeriodicWork$1 run
+INFO: Started Download metadata
+Jun 28, 2019 6:36:59 AM hudson.util.Retrier start
+INFO: Attempt #1 to do the action check updates server
+Jun 28, 2019 6:37:10 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@2a7e668c: display name [Root WebApplicationContext]; startup date [Fri Jun 28 06:37:10 UTC 2019]; root of context hierarchy
+Jun 28, 2019 6:37:10 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@2a7e668c]: org.springframework.beans.factory.support.DefaultListableBeanFactory@49ca7952
+Jun 28, 2019 6:37:10 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@49ca7952: defining beans [authenticationManager]; root of factory hierarchy
+Jun 28, 2019 6:37:14 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@18cfd94e: display name [Root WebApplicationContext]; startup date [Fri Jun 28 06:37:14 UTC 2019]; root of context hierarchy
+Jun 28, 2019 6:37:14 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@18cfd94e]: org.springframework.beans.factory.support.DefaultListableBeanFactory@32b1b3e4
+Jun 28, 2019 6:37:14 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@32b1b3e4: defining beans [filter,legacy]; root of factory hierarchy
+Jun 28, 2019 6:37:18 AM jenkins.install.SetupWizard init
+INFO:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+5e4f3e581d724d26826a6d45a672b1af
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jun 28, 2019 6:37:23 AM hudson.model.UpdateSite updateData
+INFO: Obtained the latest update center data file for UpdateSource default
+Jun 28, 2019 6:37:27 AM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+Jun 28, 2019 6:37:27 AM hudson.util.Retrier start
+INFO: Performed the action check updates server successfully at the attempt #1
+Jun 28, 2019 6:37:27 AM hudson.model.AsyncPeriodicWork$1 run
+INFO: Finished Download metadata. 28,162 ms
+Jun 28, 2019 6:37:45 AM hudson.model.UpdateSite updateData
+INFO: Obtained the latest update center data file for UpdateSource default
+Jun 28, 2019 6:37:46 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Jun 28, 2019 6:37:46 AM hudson.WebAppMain$3 run
+INFO: Jenkins is fully up and running
+root@k8smaster:/home/vagrant/build-machine#
+
