@@ -157,3 +157,128 @@ Jun 28, 2019 6:37:46 AM hudson.WebAppMain$3 run
 INFO: Jenkins is fully up and running
 root@k8smaster:/home/vagrant/build-machine#
 
+
+
+-----------------------------------------------------------------------------------------
+
+root@k8smaster:~# mkdir myimg
+root@k8smaster:~# cd myimg/
+root@k8smaster:~/myimg# ls
+root@k8smaster:~/myimg# vi Dockerfile
+root@k8smaster:~/myimg# docker image build -t myimg .
+Sending build context to Docker daemon 2.048 kB
+Step 1/2 : FROM alpine
+ ---> 055936d39205
+Step 2/2 : RUN touch /bin/deploy
+ ---> Running in e597200e868f
+ ---> 02664317cb18
+Removing intermediate container e597200e868f
+Successfully built 02664317cb18
+root@k8smaster:~/myimg# docker image push myimg
+The push refers to a repository [docker.io/library/myimg]
+56a53872555f: Preparing
+f1b5933fe4b5: Preparing
+denied: requested access to the resource is denied
+root@k8smaster:~/myimg# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: adityaprabhakara
+Password:
+Login Succeeded
+root@k8smaster:~/myimg# docker image push myimg
+The push refers to a repository [docker.io/library/myimg]
+56a53872555f: Preparing
+f1b5933fe4b5: Preparing
+denied: requested access to the resource is denied
+root@k8smaster:~/myimg# docker image push adityaprabhakara/myimg
+The push refers to a repository [docker.io/adityaprabhakara/myimg]
+An image does not exist locally with the tag: adityaprabhakara/myimg
+root@k8smaster:~/myimg# docker image tag myimg adityaprabhakara/myimg
+root@k8smaster:~/myimg# docker image ls myimg
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+myimg               latest              02664317cb18        5 minutes ago       5.53 MB
+root@k8smaster:~/myimg# docker image ls adityaprabhakara/myimg
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+adityaprabhakara/myimg   latest              02664317cb18        5 minutes ago       5.53 MB
+root@k8smaster:~/myimg# docker image push adityaprabhakara/myimg
+The push refers to a repository [docker.io/adityaprabhakara/myimg]
+56a53872555f: Pushed
+f1b5933fe4b5: Pushed
+latest: digest: sha256:9b58d491ed54a3d117f37668959805176c0b05ab58f65c81dd0c29cb44921b75 size: 735
+root@k8smaster:~/myimg# history | tail -n 10
+  869  docker image build -t myimg .
+  870  docker image push myimg
+  871  docker login
+  872  docker image push myimg
+  873  docker image push adityaprabhakara/myimg
+  874  docker image tag myimg adityaprabhakara/myimg
+  875  docker image ls myimg
+  876  docker image ls adityaprabhakara/myimg
+  877  docker image push adityaprabhakara/myimg
+  878  history | tail -n 10
+root@k8smaster:~/myimg# docker image ls
+REPOSITORY                                      TAG                 IMAGE ID            CREATED             SIZE
+adityaprabhakara/myimg                          latest              02664317cb18        11 minutes ago      5.53 MB
+myimg                                           latest              02664317cb18        11 minutes ago      5.53 MB
+adityaprabhakara/appjun23                       2                   7816f317700d        5 days ago          10.4 MB
+adityaprabhakara/appjun23                       3                   7816f317700d        5 days ago          10.4 MB
+app-machine                                     latest              3ece2b9d4ba5        5 days ago          1.28 GB
+build-machine                                   latest              3ece2b9d4ba5        5 days ago          1.28 GB
+adityaprabhakara/appjun23                       1                   cd4048a495fc        5 days ago          10.4 MB
+adityaprabhakara/trial                          1                   cd4048a495fc        5 days ago          10.4 MB
+adityaprabhakara/trial                          2                   cd4048a495fc        5 days ago          10.4 MB
+adityaprabhakara/trial                          3                   cd4048a495fc        5 days ago          10.4 MB
+adityaprabhakara/trial                          4                   cd4048a495fc        5 days ago          10.4 MB
+build-machine                                   2                   f06bdf6d4580        6 days ago          1.02 GB
+k8s.gcr.io/kube-proxy                           v1.15.0             d235b23c3570        8 days ago          82.4 MB
+k8s.gcr.io/kube-apiserver                       v1.15.0             201c7a840312        8 days ago          207 MB
+k8s.gcr.io/kube-controller-manager              v1.15.0             8328bb49b652        8 days ago          159 MB
+k8s.gcr.io/kube-scheduler                       v1.15.0             2d3813851e87        8 days ago          81.1 MB
+build-machine                                   1                   e932b627ba5e        11 days ago         1.14 GB
+adityaprabhakara/trial                          <none>              0e9334a95000        13 days ago         10.4 MB
+nginx                                           latest              719cd2e3ed04        2 weeks ago         109 MB
+k8s.gcr.io/kube-proxy                           v1.14.3             004666307c5b        3 weeks ago         82.1 MB
+k8s.gcr.io/kube-controller-manager              v1.14.3             ac2ce44462bc        3 weeks ago         158 MB
+k8s.gcr.io/kube-apiserver                       v1.14.3             9946f563237c        3 weeks ago         210 MB
+k8s.gcr.io/kube-scheduler                       v1.14.3             953364a3ae7a        3 weeks ago         81.6 MB
+adityaprabhakara/trial                          <none>              b44d9c490a25        4 weeks ago         10.4 MB
+k8s.gcr.io/kube-proxy                           v1.14.2             5c24210246bb        6 weeks ago         82.1 MB
+k8s.gcr.io/kube-apiserver                       v1.14.2             5eeff402b659        6 weeks ago         210 MB
+k8s.gcr.io/kube-controller-manager              v1.14.2             8be94bdae139        6 weeks ago         158 MB
+k8s.gcr.io/kube-scheduler                       v1.14.2             ee18f350636d        6 weeks ago         81.6 MB
+172.17.0.2:5000/alpine                          latest              055936d39205        6 weeks ago         5.53 MB
+adityaprabhakara/alpine                         latest              055936d39205        6 weeks ago         5.53 MB
+alpine                                          latest              055936d39205        6 weeks ago         5.53 MB
+rtattuku/myimg                                  latest              b58cfee626f5        2 months ago        10.4 MB
+adityaprabhakara/alpine                         <none>              cdf98d1859c1        2 months ago        5.53 MB
+alpine                                          <none>              cdf98d1859c1        2 months ago        5.53 MB
+k8s.gcr.io/kube-proxy                           v1.14.1             20a2d7035165        2 months ago        82.1 MB
+k8s.gcr.io/kube-apiserver                       v1.14.1             cfaa4ad74c37        2 months ago        210 MB
+k8s.gcr.io/kube-controller-manager              v1.14.1             efb3887b411d        2 months ago        158 MB
+k8s.gcr.io/kube-scheduler                       v1.14.1             8931473d5bdb        2 months ago        81.6 MB
+adityaprabhakara/trial                          5                   21916a7a3281        2 months ago        10.4 MB
+adityaprabhakara/trial                          6                   21916a7a3281        2 months ago        10.4 MB
+adityaprabhakara/alpine-apache                  latest              a37386df4850        2 months ago        10.4 MB
+k8s.gcr.io/kube-proxy                           v1.14.0             5cd54e388aba        3 months ago        82.1 MB
+k8s.gcr.io/kube-controller-manager              v1.14.0             b95b1efa0436        3 months ago        158 MB
+k8s.gcr.io/kube-scheduler                       v1.14.0             00638a24688b        3 months ago        81.6 MB
+k8s.gcr.io/kube-apiserver                       v1.14.0             ecf910f40d6e        3 months ago        210 MB
+adityaprabhakara/alap                           4                   f2afd6b67fc6        3 months ago        10.4 MB
+<none>                                          <none>              60320e08e161        3 months ago        4.41 MB
+quay.io/calico/node                             v3.1.6              3030acce0214        3 months ago        241 MB
+quay.io/calico/cni                              v3.1.6              91d623a7690c        3 months ago        69.4 MB
+nginx                                           alpine              32a037976344        3 months ago        16.1 MB
+registry                                        2                   f32a97de94e1        3 months ago        25.8 MB
+alpine                                          3.8                 dac705114996        3 months ago        4.41 MB
+k8s.gcr.io/kube-proxy                           v1.13.4             fadcc5d2b066        3 months ago        80.3 MB
+k8s.gcr.io/kube-controller-manager              v1.13.4             40a817357014        3 months ago        146 MB
+k8s.gcr.io/kube-scheduler                       v1.13.4             dd862b749309        3 months ago        79.6 MB
+k8s.gcr.io/kube-apiserver                       v1.13.4             fc3801f0fc54        3 months ago        181 MB
+k8s.gcr.io/coredns                              1.3.1               eb516548c180        5 months ago        40.3 MB
+k8s.gcr.io/etcd                                 3.3.10              2c4adeb21b4f        6 months ago        258 MB
+k8s.gcr.io/coredns                              1.2.6               f59dcacceff4        7 months ago        40 MB
+k8s.gcr.io/etcd                                 3.2.24              3cab8e1b9802        9 months ago        220 MB
+k8s.gcr.io/metrics-server-amd64                 v0.3.1              61a0c90da56e        9 months ago        40.8 MB
+k8s.gcr.io/pause                                3.1                 da86e6ba6ca1        18 months ago       742 kB
+quay.io/coreos/flannel                          v0.9.1              2b736d06ca4c        19 months ago       51.3 MB
+gcr.io/google_containers/metrics-server-amd64   v0.2.0              2960d8013869        21 months ago       96.5 MB
+root@k8smaster:~/myimg#
