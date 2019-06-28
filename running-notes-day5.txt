@@ -282,3 +282,124 @@ k8s.gcr.io/pause                                3.1                 da86e6ba6ca1
 quay.io/coreos/flannel                          v0.9.1              2b736d06ca4c        19 months ago       51.3 MB
 gcr.io/google_containers/metrics-server-amd64   v0.2.0              2960d8013869        21 months ago       96.5 MB
 root@k8smaster:~/myimg#
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+λ kubectl get pods -n kube-system -o wide
+NAME                                READY   STATUS    RESTARTS   AGE     IP              NODE
+      NOMINATED NODE   READINESS GATES
+canal-cdpd2                         3/3     Running   0          114m    192.167.10.71   k8snode1    <none>           <none>
+canal-xdf4r                         3/3     Running   0          114m    192.167.10.70   k8smaster   <none>           <none>
+coredns-5c98db65d4-fdhlq            0/1     Running   0          3s      192.168.0.19    k8smaster   <none>           <none>
+coredns-5c98db65d4-kss68            1/1     Running   0          3h34m   192.168.2.3     k8snode1    <none>           <none>
+coredns-5c98db65d4-lml6r            1/1     Running   0          3h34m   192.168.2.2     k8snode1    <none>           <none>
+etcd-k8smaster                      1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-apiserver-k8smaster            1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-controller-manager-k8smaster   1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-d9vjn                    1/1     Running   0          3h34m   192.167.10.70   k8smaster   <none>           <none>
+kube-proxy-v6n2r                    1/1     Running   0          3h24m   192.167.10.71   k8snode1    <none>           <none>
+kube-scheduler-k8smaster            1/1     Running   0          3h33m   192.167.10.70   k8smaster   <none>           <none>
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get svc
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+helloworld-dep   NodePort    10.98.30.136   <none>        80:32592/TCP   27m
+kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP        3h38m
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get nodes
+NAME        STATUS   ROLES    AGE   VERSION
+k8smaster   Ready    master   21h   v1.15.0
+k8snode1    Ready    <none>   20h   v1.15.0
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ k
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get deploy
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+app-dep          3/3     3            3           37s
+helloworld-dep   1/1     1            1           23h
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl rollout history deploy app-dep
+deployment.extensions/app-dep
+REVISION  CHANGE-CAUSE
+1         <none>
+
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl rollout history deploy app-dep --revision 1
+deployment.extensions/app-dep with revision #1
+Pod Template:
+  Labels:       app=helloworld
+        pod-template-hash=5bc44d5bc
+  Containers:
+   web:
+    Image:      adityaprabhakara/appjun28:2
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Environment:        <none>
+    Mounts:     <none>
+  Volumes:      <none>
+
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ kubectl get svc
+NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+app-dep-svc      NodePort    10.105.148.101   <none>        9999:32007/TCP   74s
+helloworld-dep   NodePort    10.98.30.136     <none>        80:32592/TCP     22h
+kubernetes       ClusterIP   10.96.0.1        <none>        443/TCP          25h
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s/newcluster (master)
+λ cd ..
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/pv.yml
+persistentvolume/mysql-pv-volume1 created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pv
+NAME               CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS
+  REASON   AGE
+mysql-pv-volume1   1Gi        RWO            Retain           Available           manual
+           9s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/pvc.yml
+persistentvolumeclaim/mysql-pv-claim created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pvc
+NAME             STATUS   VOLUME             CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+mysql-pv-claim   Bound    mysql-pv-volume1   1Gi        RWO            manual         16s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pv
+NAME               CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM
+ STORAGECLASS   REASON   AGE
+mysql-pv-volume1   1Gi        RWO            Retain           Bound    default/mysql-pv-claim
+ manual                  3m42s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/mysql.yml
+deployment.apps/mysql created
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY   STATUS              RESTARTS   AGE
+app-dep-7f4847c8cb-ct7gq          1/1     Running             0          47m
+app-dep-7f4847c8cb-vh87p          1/1     Running             0          47m
+app-dep-7f4847c8cb-vlqnd          1/1     Running             0          47m
+helloworld-dep-85d7854f8b-q4fvv   1/1     Running             1          24h
+mysql-78dcf758d6-b4rzl            0/1     ContainerCreating   0          13s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY   STATUS              RESTARTS   AGE
+app-dep-7f4847c8cb-ct7gq          1/1     Running             0          48m
+app-dep-7f4847c8cb-vh87p          1/1     Running             0          48m
+app-dep-7f4847c8cb-vlqnd          1/1     Running             0          48m
+helloworld-dep-85d7854f8b-q4fvv   1/1     Running             1          24h
+mysql-78dcf758d6-b4rzl            0/1     ContainerCreating   0          58s
+Dell lap@Dell ~/docker-workshop/jun24/ora-jun24-dock-kube/k8s (master)
+λ kubectl get pods
