@@ -1,0 +1,40 @@
+login as: vagrant
+vagrant@192.167.10.70's password:
+Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-131-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+143 packages can be updated.
+89 updates are security updates.
+
+
+Last login: Thu Jun 27 06:40:52 2019 from 192.167.10.1
+vagrant@k8smaster:~$ ls
+canal.yml  Dockerfile  kube-installations.sh  metrics-server  scale.yml
+dep.yml    install.sh  local-alpine           myimg
+vagrant@k8smaster:~$
+vagrant@k8smaster:~$ mkdir build-machine
+vagrant@k8smaster:~$ cd build-machine/
+vagrant@k8smaster:~/build-machine$ ls
+vagrant@k8smaster:~/build-machine$ vi Dockerfile
+vagrant@k8smaster:~/build-machine$ ls
+Dockerfile
+vagrant@k8smaster:~/build-machine$ cat Dockerfile
+FROM jenkins/jenkins:lts
+USER root
+RUN apt-get update -qq \
+    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
+    && apt-get update  -qq \
+    && apt-get install docker-ce=17.09.0~ce-0~debian -y
+RUN usermod -aG docker jenkins
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && mv kubectl /bin && chmod +x /bin/kubectl
+RUN apt-get install -y git
+vagrant@k8smaster:~/build-machine$ docker build -t build-machine .
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.27/build?buildargs=%7B%7D&cachefrom=%5B%5D&cgroupparent=&cpuperiod=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=%7B%7D&memory=0&memswap=0&networkmode=default&rm=1&shmsize=0&t=build-machine&ulimits=null: dial unix /var/run/docker.sock: connect: permission denied
+vagrant@k8smaster:~/build-machine$ sudo su
+root@k8smaster:/home/vagrant/build-machine# docker build -t build-machine .
+Sending build context to Docker daemon  2.56 kB
